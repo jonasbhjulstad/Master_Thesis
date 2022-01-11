@@ -30,6 +30,8 @@ set_target_properties(CutestLib PROPERTIES
 set(SIF_OBJECTS "${SIF_DATA_PATH}/ELFUN.o" "${SIF_DATA_PATH}/EXTER.o" "${SIF_DATA_PATH}/GROUP.o" "${SIF_DATA_PATH}/RANGE.o")
 
 include_directories("${PROJECT_SOURCE_DIR}/include" "${PROJECT_SOURCE_DIR}/Data" ${CUTEST_INCLUDE_PATH} "${PROJECT_SOURCE_DIR}/extern" "${PROJECT_SOURCE_DIR}/extern/pybind11/include")
+link_libraries("gfortran")
+
 #Macro:
 MACRO(SUBDIRLIST result curdir)
   FILE(GLOB children RELATIVE ${curdir} ${curdir}/*)
