@@ -184,7 +184,6 @@ if __name__ == '__main__':
     else:
         with open(baseFolder + 'Problem/probname.txt', 'r') as file:
             probname = file.read()[:-1]
-        # Plot_Objective(baseFolder + probname + "/")
-        Plot_Objective(baseFolder + "HS109.SIF/")
+        Plot_Objective(baseFolder + probname + "/")
 
 
