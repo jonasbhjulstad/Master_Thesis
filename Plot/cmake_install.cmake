@@ -1,4 +1,4 @@
-# Install script for directory: /home/deb/Documents/FIPOPT
+# Install script for directory: /home/build/FIPOPT
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -39,11 +39,11 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/home/deb/Documents/FIPOPT/Plot/Data/cmake_install.cmake")
-  include("/home/deb/Documents/FIPOPT/Plot/include/cmake_install.cmake")
-  include("/home/deb/Documents/FIPOPT/Plot/src/cmake_install.cmake")
-  include("/home/deb/Documents/FIPOPT/Plot/test/cmake_install.cmake")
-  include("/home/deb/Documents/FIPOPT/Plot/Plot/cmake_install.cmake")
+  include("/home/build/FIPOPT/Plot/Data/cmake_install.cmake")
+  include("/home/build/FIPOPT/Plot/include/cmake_install.cmake")
+  include("/home/build/FIPOPT/Plot/src/cmake_install.cmake")
+  include("/home/build/FIPOPT/Plot/test/cmake_install.cmake")
+  include("/home/build/FIPOPT/Plot/Plot/cmake_install.cmake")
 
 endif()
 
@@ -55,5 +55,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/deb/Documents/FIPOPT/Plot/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/build/FIPOPT/Plot/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

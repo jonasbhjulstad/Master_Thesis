@@ -1,4 +1,4 @@
-# Install script for directory: /home/deb/Documents/FIPOPT/Plot/SIF
+# Install script for directory: /home/build/FIPOPT/Plot/SIF
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

@@ -3,7 +3,7 @@
 #include <Sparse/Algorithms/LSFB/LSFB.hpp>
 #include <Eigen/SparseQR>
 #include <string>
-const std::string fPath = "/home/deb/Documents/FIPOPT/Data/SIF/Problem/";
+const std::string fPath = "/home/build/FIPOPT/Data/SIF/Problem/";
 
 using namespace FIPOPT::Sparse;
 int main()

@@ -1,4 +1,4 @@
-# Install script for directory: /home/deb/Documents/FIPOPT/Data/SIF
+# Install script for directory: /home/build/FIPOPT/Data/SIF
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -39,7 +39,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/home/deb/Documents/FIPOPT/Plot/Data/SIF/Problem/cmake_install.cmake")
+  include("/home/build/FIPOPT/Plot/Data/SIF/Problem/cmake_install.cmake")
 
 endif()
 

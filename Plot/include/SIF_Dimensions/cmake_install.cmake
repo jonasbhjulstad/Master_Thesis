@@ -1,4 +1,4 @@
-# Install script for directory: /home/deb/Documents/FIPOPT/include/SIF_Dimensions
+# Install script for directory: /home/build/FIPOPT/include/SIF_Dimensions
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

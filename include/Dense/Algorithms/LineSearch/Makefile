@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/deb/Documents/CIPOPT
+CMAKE_SOURCE_DIR = /home/build/CIPOPT
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/deb/Documents/CIPOPT
+CMAKE_BINARY_DIR = /home/build/CIPOPT
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,14 +80,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/deb/Documents/CIPOPT && $(CMAKE_COMMAND) -E cmake_progress_start /home/deb/Documents/CIPOPT/CMakeFiles /home/deb/Documents/CIPOPT/include/LineSearch/CMakeFiles/progress.marks
-	cd /home/deb/Documents/CIPOPT && $(MAKE) -f CMakeFiles/Makefile2 include/LineSearch/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/deb/Documents/CIPOPT/CMakeFiles 0
+	cd /home/build/CIPOPT && $(CMAKE_COMMAND) -E cmake_progress_start /home/build/CIPOPT/CMakeFiles /home/build/CIPOPT/include/LineSearch/CMakeFiles/progress.marks
+	cd /home/build/CIPOPT && $(MAKE) -f CMakeFiles/Makefile2 include/LineSearch/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/build/CIPOPT/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/deb/Documents/CIPOPT && $(MAKE) -f CMakeFiles/Makefile2 include/LineSearch/clean
+	cd /home/build/CIPOPT && $(MAKE) -f CMakeFiles/Makefile2 include/LineSearch/clean
 .PHONY : clean
 
 # The main clean target
@@ -97,17 +97,17 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/deb/Documents/CIPOPT && $(MAKE) -f CMakeFiles/Makefile2 include/LineSearch/preinstall
+	cd /home/build/CIPOPT && $(MAKE) -f CMakeFiles/Makefile2 include/LineSearch/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/deb/Documents/CIPOPT && $(MAKE) -f CMakeFiles/Makefile2 include/LineSearch/preinstall
+	cd /home/build/CIPOPT && $(MAKE) -f CMakeFiles/Makefile2 include/LineSearch/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/deb/Documents/CIPOPT && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/build/CIPOPT && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Help Target
@@ -129,6 +129,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/deb/Documents/CIPOPT && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/build/CIPOPT && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

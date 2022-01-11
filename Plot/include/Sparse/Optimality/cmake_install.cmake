@@ -1,4 +1,4 @@
-# Install script for directory: /home/deb/Documents/FIPOPT/include/Sparse/Optimality
+# Install script for directory: /home/build/FIPOPT/include/Sparse/Optimality
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

@@ -1,4 +1,4 @@
-# Install script for directory: /home/deb/Documents/FIPOPT/Data/SIF/Problem
+# Install script for directory: /home/build/FIPOPT/Data/SIF/Problem
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

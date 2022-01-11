@@ -1,4 +1,4 @@
-# Install script for directory: /home/deb/Documents/FIPOPT/include/Sparse/Functors
+# Install script for directory: /home/build/FIPOPT/include/Sparse/Functors
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

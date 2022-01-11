@@ -1,4 +1,4 @@
-# Install script for directory: /home/deb/Documents/FIPOPT/include/Dense/Initial_Multipliers
+# Install script for directory: /home/build/FIPOPT/include/Dense/Initial_Multipliers
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

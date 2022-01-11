@@ -1,4 +1,4 @@
-# Install script for directory: /home/deb/Documents/FIPOPT/include/Sparse/KKT_System
+# Install script for directory: /home/build/FIPOPT/include/Sparse/KKT_System
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

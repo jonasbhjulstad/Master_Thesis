@@ -24,9 +24,9 @@ int main()
     using Mat_A = Eigen::Matrix<double, Nx + Nh, Nx + Nh>;
     using Vec_x = Eigen::Matrix<double, Nx, 1>;
 
-    const std::string SIF_path = "/home/deb/Documents/FIPOPT/Data/SIF/Problem/";
+    const std::string SIF_path = "/home/build/FIPOPT/Data/SIF/Problem/";
     const std::string SIFname = load_SIF_name(SIF_path + "probname.txt");
-    const std::string dPath = "/home/deb/Documents/FIPOPT/Data/SIF/";
+    const std::string dPath = "/home/build/FIPOPT/Data/SIF/";
     const std::string output_path = dPath + SIFname + "/";
     const std::string journalist_ID = "journalist_f";
 

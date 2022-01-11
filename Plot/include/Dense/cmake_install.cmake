@@ -1,4 +1,4 @@
-# Install script for directory: /home/deb/Documents/FIPOPT/include/Dense
+# Install script for directory: /home/build/FIPOPT/include/Dense
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -39,13 +39,13 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/home/deb/Documents/FIPOPT/Plot/include/Dense/Algorithms/cmake_install.cmake")
-  include("/home/deb/Documents/FIPOPT/Plot/include/Dense/Functors/cmake_install.cmake")
-  include("/home/deb/Documents/FIPOPT/Plot/include/Dense/Hessian_Safeguards/cmake_install.cmake")
-  include("/home/deb/Documents/FIPOPT/Plot/include/Dense/Initial_Multipliers/cmake_install.cmake")
-  include("/home/deb/Documents/FIPOPT/Plot/include/Dense/KKT_System/cmake_install.cmake")
-  include("/home/deb/Documents/FIPOPT/Plot/include/Dense/Optimality/cmake_install.cmake")
-  include("/home/deb/Documents/FIPOPT/Plot/include/Dense/Restoration_Least_Squares/cmake_install.cmake")
+  include("/home/build/FIPOPT/Plot/include/Dense/Algorithms/cmake_install.cmake")
+  include("/home/build/FIPOPT/Plot/include/Dense/Functors/cmake_install.cmake")
+  include("/home/build/FIPOPT/Plot/include/Dense/Hessian_Safeguards/cmake_install.cmake")
+  include("/home/build/FIPOPT/Plot/include/Dense/Initial_Multipliers/cmake_install.cmake")
+  include("/home/build/FIPOPT/Plot/include/Dense/KKT_System/cmake_install.cmake")
+  include("/home/build/FIPOPT/Plot/include/Dense/Optimality/cmake_install.cmake")
+  include("/home/build/FIPOPT/Plot/include/Dense/Restoration_Least_Squares/cmake_install.cmake")
 
 endif()
 

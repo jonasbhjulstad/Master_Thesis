@@ -5,11 +5,11 @@ import pandas as pd
 import matplotlib
 import sys
 matplotlib.use
-sys.path.append("/home/deb/Documents/FIPOPT/Release/Plot/Nonlinear_QP/")
-rootFolder = "/home/deb/Documents/FIPOPT/"
+sys.path.append("/home/build/FIPOPT/Release/Plot/Nonlinear_QP/")
+rootFolder = "/home/build/FIPOPT/"
 pFolder_SOC = rootFolder + "Data/NC_QP/SOC/Trajectory/"
 pFolder_NONSOC = rootFolder + "Data/NC_QP/NONSOC/Trajectory/"
-figFolder = "/home/deb/Documents/MT/figures/"
+figFolder = "/home/build/MT/figures/"
 
 from Binder_NC_QP import *
 

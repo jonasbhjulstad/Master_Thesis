@@ -1,4 +1,4 @@
-# Install script for directory: /home/deb/Documents/FIPOPT/Plot/Nonlinear_QP
+# Install script for directory: /home/build/FIPOPT/Plot/Nonlinear_QP
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

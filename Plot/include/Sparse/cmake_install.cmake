@@ -1,4 +1,4 @@
-# Install script for directory: /home/deb/Documents/FIPOPT/include/Sparse
+# Install script for directory: /home/build/FIPOPT/include/Sparse
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -39,13 +39,13 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/home/deb/Documents/FIPOPT/Plot/include/Sparse/Algorithms/cmake_install.cmake")
-  include("/home/deb/Documents/FIPOPT/Plot/include/Sparse/Functors/cmake_install.cmake")
-  include("/home/deb/Documents/FIPOPT/Plot/include/Sparse/Hessian_Safeguards/cmake_install.cmake")
-  include("/home/deb/Documents/FIPOPT/Plot/include/Sparse/Initial_Multipliers/cmake_install.cmake")
-  include("/home/deb/Documents/FIPOPT/Plot/include/Sparse/KKT_System/cmake_install.cmake")
-  include("/home/deb/Documents/FIPOPT/Plot/include/Sparse/Optimality/cmake_install.cmake")
-  include("/home/deb/Documents/FIPOPT/Plot/include/Sparse/Restoration_Least_Squares/cmake_install.cmake")
+  include("/home/build/FIPOPT/Plot/include/Sparse/Algorithms/cmake_install.cmake")
+  include("/home/build/FIPOPT/Plot/include/Sparse/Functors/cmake_install.cmake")
+  include("/home/build/FIPOPT/Plot/include/Sparse/Hessian_Safeguards/cmake_install.cmake")
+  include("/home/build/FIPOPT/Plot/include/Sparse/Initial_Multipliers/cmake_install.cmake")
+  include("/home/build/FIPOPT/Plot/include/Sparse/KKT_System/cmake_install.cmake")
+  include("/home/build/FIPOPT/Plot/include/Sparse/Optimality/cmake_install.cmake")
+  include("/home/build/FIPOPT/Plot/include/Sparse/Restoration_Least_Squares/cmake_install.cmake")
 
 endif()
 

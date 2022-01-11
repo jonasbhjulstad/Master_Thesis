@@ -6,9 +6,9 @@ import matplotlib
 from matplotlib import ticker as mticker
 import sys
 matplotlib.use
-sys.path.append("/home/deb/Documents/FIPOPT/build/test/Plot/")
+sys.path.append("/home/build/FIPOPT/build/test/Plot/")
 
-pFolder = "/home/deb/Documents/FIPOPT/Data/QP/"
+pFolder = "/home/build/FIPOPT/Data/QP/"
 
 from Binder_QP import *
 
@@ -43,11 +43,11 @@ def load_QP_params():
 
 
 
-rootFolder = "/home/deb/Documents/FIPOPT/"
+rootFolder = "/home/build/FIPOPT/"
 sys.path.append(rootFolder + "build/test/Plot/")
 
 pFolder = rootFolder + "Data/QP/"
-figFolder = "/home/deb/Documents/MT/figures"
+figFolder = "/home/build/MT/figures"
 
 
 def split(a, n):

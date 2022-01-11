@@ -1,4 +1,4 @@
-# Install script for directory: /home/deb/Documents/FIPOPT/include/Sparse/Hessian_Safeguards
+# Install script for directory: /home/build/FIPOPT/include/Sparse/Hessian_Safeguards
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

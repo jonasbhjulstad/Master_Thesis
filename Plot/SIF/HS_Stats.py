@@ -7,12 +7,12 @@ import sys
 import os
 import re
 matplotlib.use
-sys.path.append('/home/deb/Documents/FIPOPT/Data/SIF/ipopt/')
+sys.path.append('/home/build/FIPOPT/Data/SIF/ipopt/')
 
 
-baseFolder = "/home/deb/Documents/FIPOPT/Data/SIF/"
+baseFolder = "/home/build/FIPOPT/Data/SIF/"
 pFolder = baseFolder + "Problem/"
-dimFolder = "/home/deb/Documents/FIPOPT/include/SIF_Dimensions/Dimensions.csv"
+dimFolder = "/home/build/FIPOPT/include/SIF_Dimensions/Dimensions.csv"
 SIF_Folder = "/home/deb/Downloads/cutest/sifdecode/sif/"
 
 
@@ -25,10 +25,10 @@ def count_subproblem_iter(fPath):
     return N_iter
 
 
-rootFolder = "/home/deb/Documents/FIPOPT/"
+rootFolder = "/home/build/FIPOPT/"
 sys.path.append(rootFolder + "build/test/Plot/")
 
-figFolder = "/home/deb/Documents/MT/figures/"
+figFolder = "/home/build/MT/figures/"
 
 
 def read_timing(fpath):

@@ -1,4 +1,4 @@
-# Install script for directory: /home/deb/Documents/FIPOPT/include/Dense/Restoration_Least_Squares
+# Install script for directory: /home/build/FIPOPT/include/Dense/Restoration_Least_Squares
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

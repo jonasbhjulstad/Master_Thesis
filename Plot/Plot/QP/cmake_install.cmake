@@ -1,4 +1,4 @@
-# Install script for directory: /home/deb/Documents/FIPOPT/Plot/QP
+# Install script for directory: /home/build/FIPOPT/Plot/QP
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

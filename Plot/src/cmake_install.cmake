@@ -1,4 +1,4 @@
-# Install script for directory: /home/deb/Documents/FIPOPT/src
+# Install script for directory: /home/build/FIPOPT/src
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

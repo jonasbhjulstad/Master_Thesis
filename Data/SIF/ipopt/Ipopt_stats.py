@@ -6,11 +6,11 @@ from matplotlib import ticker as mticker
 import sys
 import os
 
-baseFolder = "/home/deb/Documents/FIPOPT/Data/SIF/ipopt/"
-rootFolder = "/home/deb/Documents/FIPOPT/"
+baseFolder = "/home/build/FIPOPT/Data/SIF/ipopt/"
+rootFolder = "/home/build/FIPOPT/"
 sys.path.append(rootFolder + "build/test/Plot/")
 
-figFolder = "/home/deb/Documents/MT/figures/"
+figFolder = "/home/build/MT/figures/"
 
 def ipopt_stats():
 

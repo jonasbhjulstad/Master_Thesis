@@ -7,10 +7,10 @@ import os
 from os.path import basename
 from os import path
 matplotlib.use
-sys.path.append("/home/deb/Documents/FIPOPT/build/test/Plot/")
-baseFolder = "/home/deb/Documents/FIPOPT/Data/SIF/"
-rootFolder = "/home/deb/Documents/FIPOPT/"
-figFolder = "/home/deb/Documents/MT/figures/"
+sys.path.append("/home/build/FIPOPT/build/test/Plot/")
+baseFolder = "/home/build/FIPOPT/Data/SIF/"
+rootFolder = "/home/build/FIPOPT/"
+figFolder = "/home/build/MT/figures/"
 
 
 def read_z_traj(objective_path):

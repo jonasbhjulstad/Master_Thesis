@@ -1,4 +1,4 @@
-# Install script for directory: /home/deb/Documents/FIPOPT/Plot
+# Install script for directory: /home/build/FIPOPT/Plot
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -39,9 +39,9 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/home/deb/Documents/FIPOPT/Plot/Plot/Nonlinear_QP/cmake_install.cmake")
-  include("/home/deb/Documents/FIPOPT/Plot/Plot/QP/cmake_install.cmake")
-  include("/home/deb/Documents/FIPOPT/Plot/Plot/SIF/cmake_install.cmake")
+  include("/home/build/FIPOPT/Plot/Plot/Nonlinear_QP/cmake_install.cmake")
+  include("/home/build/FIPOPT/Plot/Plot/QP/cmake_install.cmake")
+  include("/home/build/FIPOPT/Plot/Plot/SIF/cmake_install.cmake")
 
 endif()
 
