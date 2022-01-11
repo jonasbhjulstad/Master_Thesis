@@ -79,8 +79,8 @@ namespace FIPOPT::Dense
         {
             for (int i; i < N_METHODS; i++)
             {
-                files_x[i]->close();
-                files_data[i]->close();
+                files_x[i].close();
+                files_data[i].close();
             }
             f_mu_.close();
         }
