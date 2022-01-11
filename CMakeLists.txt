@@ -7,9 +7,10 @@ find_package(pybind11 REQUIRED)
 set(Python_ADDITIONAL_VERSIONS 3.4)
 find_package(PythonLibs REQUIRED)
 # include_directories(${PYTHON_INCLUDE_DIRS})
+find_package (Eigen3 3.3 REQUIRED NO_MODULE)
 
 
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CUTEST_STATIC_LIB_PATH "$ENV{CUTEST}/objects/pc64.lnx.gfo/double/libcutest.a")
 set(CUTEST_INCLUDE_PATH "$ENV{CUTEST}/include")
@@ -18,7 +19,7 @@ set(SIF_DATA_PATH "${PROJECT_SOURCE_DIR}/Data/SIF/Problem")
 set(SIF_DECODER_FLAGS "")
 
 set(CMAKE_CXX_FLAGS_DEBUG "-g -fPIC -Wfatal-errors")
-set(CMAKE_CXX_FLAGS_RELEASE "-msse2 -mfpmath=sse -march=native -O3")
+set(CMAKE_CXX_FLAGS_RELEASE "-msse2 -mfpmath=sse -march=native -O3 -fPIC -lgfortran")
 add_library(CutestLib STATIC IMPORTED GLOBAL)
 set_target_properties(CutestLib PROPERTIES
     IMPORTED_LOCATION ${CUTEST_STATIC_LIB_PATH})
@@ -30,7 +31,7 @@ set_target_properties(CutestLib PROPERTIES
 set(SIF_OBJECTS "${SIF_DATA_PATH}/ELFUN.o" "${SIF_DATA_PATH}/EXTER.o" "${SIF_DATA_PATH}/GROUP.o" "${SIF_DATA_PATH}/RANGE.o")
 
 include_directories("${PROJECT_SOURCE_DIR}/include" "${PROJECT_SOURCE_DIR}/Data" ${CUTEST_INCLUDE_PATH} "${PROJECT_SOURCE_DIR}/extern" "${PROJECT_SOURCE_DIR}/extern/pybind11/include")
-link_libraries("gfortran")
+link_libraries("gfortran" Eigen3::Eigen)
 
 #Macro:
 MACRO(SUBDIRLIST result curdir)

@@ -240,7 +240,6 @@ if __name__ == '__main__':
     with open(baseFolder + 'Problem/probname.txt', 'r') as file:
         probname = file.read()[:-1]
 
-    # Plot_Trajectory(baseFolder + probname + "/")
-    Plot_Trajectory(baseFolder + "HS88.SIF" + "/")
+    Plot_Trajectory(baseFolder + probname + "/")
 
 
