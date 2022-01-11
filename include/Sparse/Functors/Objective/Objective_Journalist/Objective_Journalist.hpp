@@ -37,7 +37,6 @@ namespace FIPOPT::Sparse
             fs::current_path(pwd);
             fs::create_directories(ID + "/Sparse/");
             fs::create_directories(ID + "/sparse/");
-            const std::string test = pwd + ID + "/Sparse/" + fnames_[0] + "_input.csv";
             for (int i; i < N_METHODS; i++)
             {
                 Sparse_files_x[i] = Allocate_Open_File(pwd + ID + "/Sparse/" + fnames_[i] + "_input.csv");

@@ -27,10 +27,8 @@ namespace FIPOPT::Dense
         const std::vector<std::string> fnames_ = {"Eval_f",
                                                   "Eval_grad"};
         static constexpr int N_METHODS = 2;
-        std::ofstream *dense_files_x[N_METHODS];
-        std::ofstream *dense_files_data[N_METHODS];
-        std::ofstream *sparse_files_x[N_METHODS];
-        std::ofstream *sparse_files_data[N_METHODS];
+        std::ofstream files_x[N_METHODS];
+        std::ofstream files_data[N_METHODS];
         std::ofstream f_mu_;
 
         const Eigen::IOFormat CSVFormat = Eigen::IOFormat(Eigen::StreamPrecision, Eigen::DontAlignCols, ", ", "\n");
@@ -51,14 +49,11 @@ namespace FIPOPT::Dense
             namespace fs = std::filesystem;
             fs::current_path(pwd_);
             fs::create_directories(ID_ + "/dense/" + mu_str + "/");
-            fs::create_directories(ID_ + "/sparse/" + mu_str + "/");
             f_mu_ << mu << '\n';
             for (int i; i < N_METHODS; i++)
             {
-                dense_files_x[i] = Allocate_Open_File(pwd_ + ID_ + "/dense/" + mu_str + "/" + fnames_[i] + "_input.csv");
-                dense_files_data[i] = Allocate_Open_File(pwd_ + ID_ + "/dense/" + mu_str + "/"  + fnames_[i] + "_data.csv");
-                sparse_files_x[i] = Allocate_Open_File(pwd_ + ID_ + "/sparse/" + mu_str + "/" + fnames_[i] + "_input.csv");
-                sparse_files_data[i] = Allocate_Open_File(pwd_ + ID_ + "/sparse/" + mu_str + "/" + fnames_[i] + "_data.csv");
+                files_x[i] = Allocate_Open_File(pwd_ + ID_ + "/dense/" + mu_str + "/" + fnames_[i] + "_input.csv");
+                files_data[i] = Allocate_Open_File(pwd_ + ID_ + "/dense/" + mu_str + "/"  + fnames_[i] + "_data.csv");
             }
         }
 
@@ -69,26 +64,23 @@ namespace FIPOPT::Dense
 
         inline void Eval_f(const MatrixBase<Vec_x> &x, const MatrixBase<Val> &res)
         {
-            Write_CSV(dense_files_x[0], x);
-            Write_CSV(dense_files_data[0], res);
+            Write_CSV(files_x[0], x);
+            Write_CSV(files_data[0], res);
         }
 
 
         inline void Eval_grad(const MatrixBase<Vec_x> &x, const MatrixBase<Vec_x> &res)
         {
-            Vec_x tx = x;
-            Write_CSV(dense_files_x[1], tx);
-            Write_CSV(dense_files_data[1], res);
+            Write_CSV(files_x[1], res);
+            Write_CSV(files_data[1], res);
         }
 
         ~barrier_journalist()
         {
             for (int i; i < N_METHODS; i++)
             {
-                dense_files_x[i]->close();
-                dense_files_data[i]->close();
-                sparse_files_x[i]->close();
-                sparse_files_data[i]->close();
+                files_x[i]->close();
+                files_data[i]->close();
             }
             f_mu_.close();
         }

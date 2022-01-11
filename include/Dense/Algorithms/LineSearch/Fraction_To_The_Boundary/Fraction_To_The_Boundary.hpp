@@ -12,7 +12,6 @@ namespace FIPOPT::Dense
         Eigen::Matrix<double, Vec::RowsAtCompileTime, 1> alphas = (-tau_j * z.cwiseProduct(d_z.cwiseInverse()).array()).matrix();
         alphas = (alphas.array() >= 0).select(alphas, 1e8);
         double alpha_min = alphas.minCoeff();
-        Eigen::Matrix<double, Vec::RowsAtCompileTime, 1> test = z + d_z * alpha_min;
         return std::max(std::min(alpha_min, 1.0), 0.);
     }
 

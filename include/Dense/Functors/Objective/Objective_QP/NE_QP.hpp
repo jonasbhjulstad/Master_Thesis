@@ -5,6 +5,8 @@
 #include <Common/EigenDataTypes.hpp>
 #include <fstream>
 
+//Nonlinearly Equality-Constrained QP
+
 namespace FIPOPT::Dense
 {
 

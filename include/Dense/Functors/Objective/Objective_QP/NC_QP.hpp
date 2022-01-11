@@ -5,6 +5,8 @@
 #include <Common/EigenDataTypes.hpp>
 #include <fstream>
 
+// Nonlinearly constrained QP
+
 namespace FIPOPT::Dense
 {
 
