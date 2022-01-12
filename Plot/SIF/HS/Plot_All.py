@@ -4,14 +4,13 @@ import pandas as pd
 import matplotlib
 from matplotlib import ticker as mticker
 import sys
-import os
 matplotlib.use
+sys.path.append("/home/deb/Documents/gitFIPOPT/Plot/SIF/")
 from Objective_Plot import Plot_Objective
 from Trajectory_Plot import Plot_Trajectory
 from Multiplier_Plot import Plot_Multipliers
-import multiprocessing as mp
-
-baseFolder = "/home/build/FIPOPT/Data/SIF/"
+baseFolder = "/home/deb/Documents/gitFIPOPT/Data/SIF"
+HS_Folder = baseFolder + "/HS"
 
 def plot_single_SIF(fPath):
     Plot_Objective(fPath)
@@ -25,10 +24,10 @@ if __name__ == '__main__':
     SIF_folders = []
 
 
-    with open(baseFolder + 'Problem/probname.txt', 'r') as file:
+    with open(baseFolder + '/Problem/probname.txt', 'r') as file:
         probname = file.read()[:-1]
 
-    plot_single_SIF(baseFolder + probname + "/")
+    plot_single_SIF(HS_Folder + "/" + probname + "/")
     
     
 

@@ -8,11 +8,11 @@ import os
 from os.path import basename
 
 matplotlib.use
-sys.path.append("/home/build/FIPOPT/Release/Plot/SIF/")
-
-baseFolder = "/home/build/FIPOPT/Data/SIF/"
-pFolder = baseFolder + "Problem/"
-dimFolder = "/home/build/FIPOPT/include/SIF_Dimensions/Dimensions.csv"
+sys.path.append("/home/deb/Documents/gitFIPOPT/Release/Plot/SIF/")
+baseFolder = "/home/deb/Documents/gitFIPOPT/Data/SIF"
+HS_Folder = baseFolder + "/HS"
+pFolder = baseFolder + "/Problem"
+dimFolder = "/home/deb/Documents/gitFIPOPT/include/SIF_Dimensions/Dimensions.csv"
 from Binder_SIF import *
 
 
@@ -45,11 +45,11 @@ def load_QP_params():
 
 
 
-rootFolder = "/home/build/FIPOPT/"
+rootFolder = "/home/deb/Documents/gitFIPOPT/"
 sys.path.append(rootFolder + "build/test/Plot/")
 
-figFolder = "/home/build/MT/figures/"
-outsdif = pFolder + "OUTSDIF.d" 
+figFolder = "/home/deb/Documents/gitFIPOPT/figures/"
+outsdif = pFolder + "/OUTSDIF.d" 
 
 
 def split(a, n):
@@ -81,7 +81,7 @@ def get_dim(fname):
         else:
             return len(np.fromstring(res, sep=', '))
 def is_converged(dirname):
-    with open(baseFolder + dirname + "/success.txt", 'r') as file:
+    with open(HS_Folder + dirname + "/success.txt", 'r') as file:
         if int(file.readline()) == 1:
             return True
 
@@ -146,7 +146,7 @@ def Plot_Trajectory(fname):
         # ax.scatter(cI_x[0,0], cI_x[0,1], marker='.', color='k')
         # ax.scatter(cI_x[-1,0], cI_x[-1,1], marker='.', color='k')
         ax.scatter([cI_x[0,0], cI_x[-1,0]], [cI_x[0,1], cI_x[-1,1]], color='k', marker='P');
-        ax.plot(cI_x[:,0], cI_x[:,1], color='k', linestyle='dotted', alpha=.5, label='Inequality Restoration');
+        # ax.plot(cI_x[:,0], cI_x[:,1], color='k', linestyle='dotted', alpha=.5, label='Inequality Restoration');
     for edir in eq_dirs:
         cE_x = np.genfromtxt(fname + edir + "x.csv", delimiter=",")
         if len(cE_x.shape) > 1:
@@ -177,8 +177,8 @@ def Plot_Trajectory(fname):
 
 
 
-    x0 = np.linspace(xplot_s[0], xplot_f[0], 300)
-    x1 = np.linspace(xplot_s[1], xplot_f[1], 300)
+    x0 = np.linspace(xplot_s[0], xplot_f[0], 1000)
+    x1 = np.linspace(xplot_s[1], xplot_f[1], 1000)
     x0_m = np.linspace(xplot_s[0], xplot_f[0], 20)
     x1_m = np.linspace(xplot_s[1], xplot_f[1], 20)
     X_markers, Y_markers = np.meshgrid(x0_m, x1_m)
@@ -203,7 +203,7 @@ def Plot_Trajectory(fname):
         [eCol, eRow] = np.where(np.abs(C_E) <= 1e-1)
         # plt.scatter(X[eCol, eRow], Y[eCol, eRow], marker='o', color='k', label=r'$c_E(x) = 0$')
         
-        ax.contour(X, Y, C_E, levels=[-1e-1, 1e-1], cmap='Greys', linestyle='-o-')
+        ax.contour(X, Y, C_E, levels=[-.5e-2, .5e-2], colors='gray', linestyles='dashed')
     # res = ax.contour(X, Y, C_E, levels=[-1e-2, 1e-2], cmap='Greys')
 
     ax.contourf(X, Y, Phi, cmap='Greys')
@@ -222,14 +222,17 @@ def Plot_Trajectory(fname):
     # ax.plot(x_ineq_cp_traj[:,0], x_ineq_cp_traj[:,1], color='k', linestyle='dotted', label='Restoration')
     # ax.scatter(x_cp_traj[1,0], x_cp_traj[1,0], color='k', marker='.')
     main_x_traj = np.concatenate(main_x_traj, axis=0)
-    ax.plot(main_x_traj[:,0], main_x_traj[:,1], color='k', label='Barrier Subproblem')
+    ax.plot(main_x_traj[:-1,0], main_x_traj[:-1,1], color='k', label='Barrier Subproblem')
     ax.scatter(x_cp_traj[:-1, 0], x_cp_traj[:-1,1], color='k', marker='.', label='Central Path')
     ax.scatter(main_x_traj[-1,0], main_x_traj[-1,1], color='k', marker='^', label=r"$x^*$")
 
-    ax.set_title(r"$x^* = [{:.1f}, {:.1f}]$, $f^* = {:.3e}$, $E_0 = {:.3e}$, $N_\mu = {}$".format(x_cp_traj[-1][0], x_cp_traj[-1][1], objvals[-1,1], objvals[-1,0], len(mu_list)))
+    # ax.set_title(r"$x^* = [{:.1f}, {:.1f}]$, $f^* = {:.3e}$, $E_0 = {:.3e}$, $N_\mu = {}$".format(x_cp_traj[-1][0], x_cp_traj[-1][1], objvals[-1,1], objvals[-1,0], len(mu_list)))
     fig.subplots_adjust(hspace=1.)
     fig.subplots_adjust(wspace=1.)
-    ax.legend()
+    # ax.legend()
+    # plt.show()
+    ax.get_yaxis().set_visible(False)
+    ax.get_xaxis().set_visible(False)
     plt.show()
     fig.savefig(figFolder + "_" + basename(fname[:-1])[:-4] + "_Trajectory.pdf")
     # plt.show()
@@ -237,9 +240,9 @@ def Plot_Trajectory(fname):
 
 if __name__ == '__main__':
 
-    with open(baseFolder + 'Problem/probname.txt', 'r') as file:
+    with open(pFolder + '/probname.txt', 'r') as file:
         probname = file.read()[:-1]
 
-    Plot_Trajectory(baseFolder + probname + "/")
+    Plot_Trajectory(HS_Folder + "/" + probname + "/")
 
 

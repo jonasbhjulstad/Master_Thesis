@@ -15,6 +15,7 @@ using Eigen::SolverBase;
 using Eigen::SparseMatrixBase;
 using Eigen::SparseVector;
 using Eigen::SparseMatrix;
+using Eigen::Ref;
 using Triplet = Eigen::Triplet<double>;
 
 #endif

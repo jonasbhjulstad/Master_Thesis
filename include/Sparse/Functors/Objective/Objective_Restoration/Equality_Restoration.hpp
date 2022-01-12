@@ -1,67 +1,51 @@
 #ifndef FIPOPT_EQUALITY_RESTORATION_HPP
 #define FIPOPT_EQUALITY_RESTORATION_HPP
 
-#include <Sparse/Functors/Objective/Objective.hpp>
-#include <Sparse/Functors/Objective/Objective_Memoized/Objective_Memoized.hpp>
-#include <Sparse/Functors/Objective/Objective_Messenger/Objective_Messenger.hpp>
+#include <Dense/Functors/Objective/Objective.hpp>
+#include <Dense/Functors/Objective/Objective_Memoized/Objective_Memoized.hpp>
+#include <Dense/Functors/Objective/Objective_Messenger/Objective_Messenger.hpp>
 #include <cmath>
 #include <fstream>
 
 namespace FIPOPT::Sparse
 {
 
-    template <typename Derived, template <class> typename Base = objective>
+    template <typename Derived, template <class, int, int, int> typename Base = objective>
     struct equality_restoration_base : public Base<equality_restoration_base<Derived, Base>>
     {
+        constexpr static int Nw = Nx + 2 * Nh;
+
         using base_t = Base<equality_restoration_base<Derived, Base>>;
-        const int &Nx = base_t::Nx_;
-        const int &Ng = base_t::Ng_;
-        const int &Nh = base_t::Nh_;
 
     protected:
-        dVec w_lb_;
-        dVec w_ub_;
-        spVec grad_f_;
-        spMat hessian_h_;
-        spMat grad_h_;
-        objective<Derived> &f_;
+        Vec_w w_lb_ = Vec_w::Constant(0.);
+        Vec_w w_ub_ = Vec_w::Constant(1e20);
+        Vec_w grad_f_;
+        Mat_w hessian_h_ = Mat_w::Zero();
+        spMat grad_h_ = spMat::Zero();
+        Objective &f_;
         const dVec x_R_;
-        dVec D_R_;
-        spMat hessian_f_;
+        spMat D_R_ = spMat::Zero();
+        Mat_w hessian_f_ = Mat_w::Zero();
         const double zeta_;
         const double rho_;
 
     public:
         equality_restoration_base(objective<Derived> &f,
-                                  const MatrixBase<dVec> &x_R,
-                                  const double &mu,
-                                  const double &rho = 1e3) : f_(f),
-                                                             x_R_(x_R),
-                                                             zeta_(sqrt(mu)),
-                                                             rho_(rho)
+                                        const MatrixBase<dVec> &x_R,
+                                        const double &mu,
+                                        const double &rho = 1e3) : f_(f),
+                                                                   x_R_(x_R),
+                                                                   zeta_(sqrt(mu)),
+                                                                   rho_(rho)
 
         {
-
-            base_t::Initialize(f.Get_Nx() + 2 * f.Get_Nh(), 0, f.Get_Nh());
-            const int Nw = Nx + 2 * Nh;
-            w_lb_.resize(Nw);
-            w_lb_.topRows(Nx).setConstant(-1e20);
-            dVec grad_f = dVec::Constant(Nx + 2 * Ng, rho);
-            grad_f.topRows(Nx) = dVec::Constant(Nx, 0.);
-            grad_f_ = grad_f.sparseView();
-            std::vector<Triplet> T;
-            for (int i = 0; i < Nh; i++)
-            {
-                T.push_back(Triplet(i, Nx + i, -1.));
-                T.push_back(Triplet(i, Nx + Nh + i, 1.));
-            }
-            grad_h_.setFromTriplets(T.begin(), T.end());
-
-            T.clear();
-            spVec hessian_diagonal = zeta_ * x_R_.cwiseAbs().cwiseInverse().sparseView();
-            set_diagonal(hessian_f_, hessian_diagonal);
-
-            D_R_ = x_R_.cwiseInverse();
+            w_lb_.head(Nx) = dVec::Constant(-1e20);
+            grad_f_.tail(2 * Nh).setConstant(rho);
+            grad_h_.middleCols(Nx, Nh).diagonal().setConstant(-1.);
+            grad_h_.rightCols(Nh).setIdentity();
+            D_R_.diagonal() = x_R_.cwiseInverse();
+            hessian_f_.topLeftCorner(Nx, Nx).diagonal() = zeta_*D_R_.diagonal();
         }
 
         template <typename BaseType>
@@ -70,33 +54,29 @@ namespace FIPOPT::Sparse
             dVec x = w.head(Nx);
             dVec p = w.segment(Nx, Nh);
             dVec n = w.tail(Nh);
-            return Val(rho_ * (p.sum() + n.sum()) + (zeta_ / 2) * (D_R_ * (x - x_R_)).norm());
+            return Val(rho_ * (p.sum() + n.sum()) + (zeta_ / 2) * (D_R_ * (x - x_R_)).template lpNorm<2>());
         }
 
         template <typename BaseType>
-        inline spVec Eval_grad(const BaseType &w)
+        inline Vec_w Eval_grad(const BaseType &w)
         {
             dVec x = w.head(Nx);
-            spVec g_f_x = (D_R_.cwiseProduct(x - x_R_)).cwiseAbs().sparseView();
-            for (spVec::InnerIterator it(g_f_x); it; ++it)
-            {
-                grad_f_.insert(it.index()) = it.value();
-            }
+            grad_f_.head(Nx) = zeta_*(D_R_ * (x - x_R_)).cwiseAbs();
             return grad_f_;
         }
 
         template <typename BaseType>
-        inline spMat Eval_hessian_f(const BaseType &w)
+        inline Mat_w Eval_hessian_f(const BaseType &w)
         {
             return hessian_f_;
         }
 
         template <typename BaseType>
-        inline spVec Eval_h(const BaseType &w)
+        inline dVec Eval_h(const BaseType &w)
         {
-            dVec x = w.topRows(Nx);
-            dVec p = w.middleRows(Nx, Nh);
-            dVec n = w.bottomRows(Nh);
+            dVec x = w.head(Nx);
+            dVec p = w.segment(Nx, Nh);
+            dVec n = w.tail(Nh);
 
             return f_.Eval_cE(x) - p + n;
         }
@@ -105,7 +85,7 @@ namespace FIPOPT::Sparse
         inline spMat Eval_grad_h(const BaseType &w)
         {
 
-            spVec x = w.topRows(Nx);
+            dVec x = w.head(Nx);
 
             grad_h_.leftCols(Nx) = f_.Eval_grad_cE(x);
 
@@ -113,26 +93,21 @@ namespace FIPOPT::Sparse
         }
 
         template <typename BaseType_x, typename BaseType_lbd>
-        inline spMat Eval_hessian_h(const BaseType_x &w, const BaseType_lbd &lbd)
+        inline Mat_w Eval_hessian_h(const BaseType_x &w, const BaseType_lbd &lbd)
         {
-            spVec x = w.topRows(Nx);
-            spMat hessian_cE = f_.Eval_hessian_cE(x, lbd);
-            block_assign(hessian_h_, hessian_cE);
+            dVec x = w.head(Nx);
+            hessian_h_.topLeftCorner(Nx, Nx) = f_.Eval_hessian_cE(x, lbd);
             return hessian_h_;
         }
-        template <typename BaseType>
-        inline spMat Eval_grad_g(const BaseType &x) { return spMat(); }
-        template <typename BaseType>
-        inline spVec Eval_g(const BaseType &x) { return spVec(); }
 
-        inline spVec Get_x_lb()
+        inline Vec_w Get_x_lb()
         {
-            return w_lb_.sparseView();
+            return w_lb_;
         }
 
-        inline spVec Get_x_ub()
+        inline Vec_w Get_x_ub()
         {
-            return w_ub_.sparseView();
+            return w_ub_;
         }
     };
 
@@ -144,9 +119,9 @@ namespace FIPOPT::Sparse
 
     template <typename Derived>
     equality_restoration(objective<Derived> &f,
-                         const MatrixBase<dVec> &x_R,
-                         const double &mu,
-                         const double &rho) -> equality_restoration<Derived>;
+                               const MatrixBase<Eigen::Matrix<double, Nx, 1>> &x_R,
+                               const double &mu,
+                               const double &rho) -> equality_restoration<Derived>;
 
     template <typename Derived>
     struct equality_restoration_memoized : public equality_restoration_base<Derived, objective_memoized>
@@ -156,9 +131,9 @@ namespace FIPOPT::Sparse
 
     template <typename Derived>
     equality_restoration_memoized(objective<Derived> &f,
-                                  const MatrixBase<dVec> &x_R,
-                                  const double &mu,
-                                  const double &rho) -> equality_restoration_memoized<Derived>;
+                                        const MatrixBase<Eigen::Matrix<double, Nx, 1>> &x_R,
+                                        const double &mu,
+                                        const double &rho) -> equality_restoration_memoized<Derived>;
 
 }
 

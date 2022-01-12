@@ -3,7 +3,7 @@
 #include <Sparse/Algorithms/LSFB/LSFB.hpp>
 #include <Eigen/SparseQR>
 #include <string>
-const std::string fPath = "/home/build/FIPOPT/Data/SIF/Problem/";
+const std::string fPath = "/home/deb/Documents/gitFIPOPT/Data/SIF/Problem/";
 
 using namespace FIPOPT::Sparse;
 int main()
@@ -22,7 +22,7 @@ int main()
     std::cout << f(x0) << std::endl;
 
 
-    spVec grad_f = f.Eval_grad(x0);
+    dVec grad_f = f.Eval_grad(x0);
 
     std::cout << "Gradient:" << std::endl;
     std::cout << grad_f << std::endl;

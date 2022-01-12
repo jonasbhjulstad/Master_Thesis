@@ -36,16 +36,6 @@ namespace FIPOPT
         return M.template lpNorm<Eigen::Infinity>();
     }
 
-    inline double l2_norm(const spVec& V)
-    {
-        double square_sum = 0;
-        for (spVec::InnerIterator it(V); it; ++it)
-        {
-            square_sum += it.value()*it.value();
-        }
-        return sqrt(square_sum);
-    }
-
 
 
     template <typename T>
@@ -93,18 +83,11 @@ namespace FIPOPT
         }
     }
 
-    inline void set_diagonal(spMat &M, spVec &diag)
-    {
-        for (spVec::InnerIterator it(diag); it; ++it)
-        {
-            M.insert(it.index(), it.index()) = it.value();
-        }
-    }
 
-    inline bool any_smaller(spVec &&M, const double &coeff)
+    inline bool any_smaller(dVec &&M, const double &coeff)
     {
         for (int k = 0; k < M.outerSize(); ++k)
-            for (spVec::InnerIterator it(M, k); it; ++it)
+            for (dVec::InnerIterator it(M, k); it; ++it)
             {
                 if (it.value() < coeff)
                     return true;
@@ -112,10 +95,10 @@ namespace FIPOPT
         return false;
     }
 
-    inline bool all_larger(const spVec &&M, const double &coeff)
+    inline bool all_larger(const dVec &&M, const double &coeff)
     {
         for (int k = 0; k < M.outerSize(); ++k)
-            for (spVec::InnerIterator it(M, k); it; ++it)
+            for (dVec::InnerIterator it(M, k); it; ++it)
             {
                 if (it.value() < coeff)
                     return false;

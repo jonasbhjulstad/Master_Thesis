@@ -2,15 +2,16 @@
 #define FIPOPT_HESSIAN_SAFEGUARDS_HPP
 namespace FIPOPT::Sparse
 {
-    template <typename Derived, typename Vec_cI, typename Vec_x>
+    template <typename Derived>
     inline void Hessian_Deviation_Reset(
         objective<Derived> &f,
-        Vec_cI &z,
-        const Vec_x &x,
+        MatrixBase<dVec> &z,
+        const MatrixBase<dVec> &x,
         const double &mu,
         const double &kappa_Sigma)
     {
-        z = z.cwiseMin(kappa_Sigma * mu * f.Eval_cI(x).cwiseInverse()).cwiseMax(mu / kappa_Sigma * f.Eval_cI(x).cwiseInverse());
+        dVec correction_values = (kappa_Sigma * mu * f.Eval_cI(x).cwiseInverse()).cwiseMax(mu / kappa_Sigma * f.Eval_cI(x).cwiseInverse());
+        z = (z.array() < correction_values.array()).select(z, correction_values);
     }
 }
 #endif

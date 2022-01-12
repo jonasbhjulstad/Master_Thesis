@@ -1,29 +1,27 @@
-#ifndef FIPOPT_BARRIER_JOURNALIST_SPARSE_HPP
-#define FIPOPT_BARRIER_JOURNALIST_SPARSE_HPP
+#ifndef FIPOPT_JOURNALIST_DENSE_HPP
+#define FIPOPT_JOURNALIST_DENSE_HPP
 #include <fstream>
 #include <string>
 #include <Common/Utils/Print.hpp>
-#include <Eigen/Sparse>
+#include <Eigen/Dense>
 #include <Eigen/Core>
 #include <array>
 // #include <Common/EigenDataTypes.hpp>
-#include <Sparse/Functors/Barrier/Barrier_Observer/Barrier_Observer.hpp>
+#include <Dense/Functors/Barrier/Barrier_Observer/Barrier_Observer.hpp>
 
 namespace FIPOPT::Sparse
 {
-    struct barrier_journalist : public barrier_observer<barrier_journalist>
+    template <int Nx, int Ng, int Nh>
+    struct barrier_journalist : public barrier_observer<barrier_journalist<Nx, Ng, Nh>>
     {
-
 
         const std::string ID_;
         const std::string pwd_;
         const std::vector<std::string> fnames_ = {"Eval_f",
                                                   "Eval_grad"};
         static constexpr int N_METHODS = 2;
-        std::ofstream *Sparse_files_x[N_METHODS];
-        std::ofstream *Sparse_files_data[N_METHODS];
-        std::ofstream *sparse_files_x[N_METHODS];
-        std::ofstream *sparse_files_data[N_METHODS];
+        std::ofstream files_x[N_METHODS];
+        std::ofstream files_data[N_METHODS];
         std::ofstream f_mu_;
 
         const Eigen::IOFormat CSVFormat = Eigen::IOFormat(Eigen::StreamPrecision, Eigen::DontAlignCols, ", ", "\n");
@@ -32,7 +30,7 @@ namespace FIPOPT::Sparse
         {
             namespace fs = std::filesystem;
             fs::current_path(pwd);
-            fs::create_directories(ID + "/Sparse/");
+            fs::create_directories(ID + "/dense/");
             fs::create_directories(ID + "/sparse/");
             f_mu_.open(ID + "/mu.csv");
         }
@@ -43,15 +41,12 @@ namespace FIPOPT::Sparse
             std::string mu_str = std::to_string(mu);
             namespace fs = std::filesystem;
             fs::current_path(pwd_);
-            fs::create_directories(ID_ + "/Sparse/" + mu_str + "/");
-            fs::create_directories(ID_ + "/sparse/" + mu_str + "/");
+            fs::create_directories(ID_ + "/dense/" + mu_str + "/");
             f_mu_ << mu << '\n';
             for (int i; i < N_METHODS; i++)
             {
-                Sparse_files_x[i] = Allocate_Open_File(pwd_ + ID_ + "/Sparse/" + mu_str + "/" + fnames_[i] + "_input.csv");
-                Sparse_files_data[i] = Allocate_Open_File(pwd_ + ID_ + "/Sparse/" + mu_str + "/"  + fnames_[i] + "_data.csv");
-                sparse_files_x[i] = Allocate_Open_File(pwd_ + ID_ + "/sparse/" + mu_str + "/" + fnames_[i] + "_input.csv");
-                sparse_files_data[i] = Allocate_Open_File(pwd_ + ID_ + "/sparse/" + mu_str + "/" + fnames_[i] + "_data.csv");
+                files_x[i] = Allocate_Open_File(pwd_ + ID_ + "/dense/" + mu_str + "/" + fnames_[i] + "_input.csv");
+                files_data[i] = Allocate_Open_File(pwd_ + ID_ + "/dense/" + mu_str + "/"  + fnames_[i] + "_data.csv");
             }
         }
 
@@ -60,40 +55,25 @@ namespace FIPOPT::Sparse
             return new std::ofstream(fname);
         }
 
-        template <typename T>
-        inline void Eval_f(const MatrixBase<T> &x, const SparseMatrixBase<spVal> &res)
+        inline void Eval_f(const MatrixBase<dVec> &x, const MatrixBase<Val> &res)
         {
-            Write_CSV(Sparse_files_x[0], x);
-            Write_CSV(Sparse_files_data[0], res);
+            Write_CSV(files_x[0], x);
+            Write_CSV(files_data[0], res);
         }
 
-        inline void Eval_f(const SparseMatrixBase<spVec> &x, const SparseMatrixBase<spVal> &res)
-        {
-            Write_CSV(sparse_files_x[0], x);
-            Write_CSV(sparse_files_data[0], res);
-        }
 
-        template <typename T>
-        inline void Eval_grad(const MatrixBase<T> &x, const SparseMatrixBase<spVec> &res)
+        inline void Eval_grad(const MatrixBase<dVec> &x, const MatrixBase<dVec> &res)
         {
-            Write_CSV(Sparse_files_x[1], x);
-            Write_CSV(Sparse_files_data[1], res);
-        }
-
-        inline void Eval_grad(const SparseMatrixBase<spVec> &x, const SparseMatrixBase<spVec> &res)
-        {
-            // Write_CSV(sparse_files_x[1], x);
-            Write_CSV(sparse_files_data[1], res);
+            Write_CSV(files_x[1], res);
+            Write_CSV(files_data[1], res);
         }
 
         ~barrier_journalist()
         {
             for (int i; i < N_METHODS; i++)
             {
-                Sparse_files_x[i]->close();
-                Sparse_files_data[i]->close();
-                sparse_files_x[i]->close();
-                sparse_files_data[i]->close();
+                files_x[i].close();
+                files_data[i].close();
             }
             f_mu_.close();
         }

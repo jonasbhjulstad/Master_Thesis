@@ -13,13 +13,13 @@
 #include <fstream>
 namespace FIPOPT::Sparse
 {
-    template <typename Derived, typename Vec_x, typename Vec_cE, typename Vec_cI>
+    template <typename Derived>
     inline void Eval_KKT_Jacobian(
         Derived &f,
         spMat &KKT_mat,
-        const SparseMatrixBase<Vec_x> &x,
-        const SparseMatrixBase<Vec_cE> &lbd,
-        const SparseMatrixBase<Vec_cI> &z,
+        const MatrixBase<dVec> &x,
+        const MatrixBase<dVec> &lbd,
+        const MatrixBase<dVec> &z,
         const double &mu)
     {
         const int Nx = x.rows();
@@ -45,56 +45,48 @@ namespace FIPOPT::Sparse
 
     }
 
-    template <typename Derived, typename Derived_B, typename Vec_x, typename Vec_cE, typename Vec_cI>
+    template <typename Derived, typename Derived_B>
     inline void Eval_KKT_Value(
         objective<Derived> &f,
         barrier<Derived_B> &phi,
-        spVec &KKT_vec,
-        const SparseMatrixBase<Vec_x> &x,
-        const SparseMatrixBase<Vec_cE> &lbd,
-        const SparseMatrixBase<Vec_cI> &z)
+        dVec &KKT_vec,
+        const MatrixBase<dVec> &x,
+        const MatrixBase<dVec> &lbd,
+        const MatrixBase<dVec> &z)
     {
         const int Nx = x.rows();
         const int Nh = lbd.rows();
-        spVec top = -(phi.Eval_grad(x) - f.Eval_grad_cE(x).transpose() * lbd);
-        spVec bottom = -f.Eval_cE(x);
-
-
-        for (spVec::InnerIterator it(top); it; ++it)
-        {
-            KKT_vec.insert(it.index()) = it.value();
-        }
         
-        for (spVec::InnerIterator it(bottom); it; ++it)
-        {
-            KKT_vec.insert(Nx + it.index()) = it.value();
-        }
+        KKT_vec.head(Nx) = -(phi.Eval_grad(x) - f.Eval_grad_cE(x).transpose() * lbd);
+        KKT_vec.tail(Nh) = -f.Eval_cE(x);
+
+
 
     }
 
-    template <typename Mat_A, typename Vec_x, typename Vec_cE, typename SolverBase>
-    inline bool Solve_KKT_System(const SparseMatrixBase<Mat_A> &KKT_vec,
-                                 SparseMatrixBase<Vec_x> &d_x,
-                                 SparseMatrixBase<Vec_cE> &d_lbd,
+    template <typename Mat_A, typename SolverBase>
+    inline bool Solve_KKT_System(const MatrixBase<Mat_A> &KKT_vec,
+                                 MatrixBase<dVec> &d_x,
+                                 MatrixBase<dVec> &d_lbd,
                                  SolverBase &KKT_solver)
     {
         const int Nx = d_x.rows();
         const int Nh = d_lbd.rows();
 
-        spMat sol = KKT_solver.solve(KKT_vec);
-        d_x = sol.topRows(Nx);
-        d_lbd = -sol.bottomRows(Nh);
+        dVec sol = KKT_solver.solve(KKT_vec);
+        d_x = sol.head(Nx);
+        d_lbd = -sol.tail(Nh);
         return !any_nan(sol);
     }
 
-    template <typename Vec_x, typename Vec_cE, typename Vec_cI>
+    template <typename dVec>
     inline void Update_PD_States(
-        SparseMatrixBase<Vec_x> &x,
-        SparseMatrixBase<Vec_cE> &lbd,
-        SparseMatrixBase<Vec_cI> &z,
-        SparseMatrixBase<Vec_x> &d_x,
-        SparseMatrixBase<Vec_cE> &d_lbd,
-        SparseMatrixBase<Vec_cI> &d_z,
+        MatrixBase<dVec> &x,
+        MatrixBase<dVec> &lbd,
+        MatrixBase<dVec> &z,
+        MatrixBase<dVec> &d_x,
+        MatrixBase<dVec> &d_lbd,
+        MatrixBase<dVec> &d_z,
         const double &alpha,
         const double alpha_z_g,
         const double alpha_z_ub,

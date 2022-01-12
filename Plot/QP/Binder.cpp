@@ -1,6 +1,6 @@
+#include <Common/EigenDataTypes.hpp>
 #include <pybind11/pybind11.h>
 #include <pybind11/eigen.h>
-#include <Common/EigenDataTypes.hpp>
 #include <Dense/Functors/Barrier/Logbarrier.hpp>
 #include <Dense/Functors/Objective/Objective_QP/Objective_QP.hpp>
 #include <Dense/Functors/Objective/Objective.hpp>

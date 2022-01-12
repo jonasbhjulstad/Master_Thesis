@@ -30,8 +30,7 @@ namespace FIPOPT::Sparse
         double tau;
         double mu_bar = mu_0;
 
-        dVec lbd_w = Eval_Initial_Multipliers(f_R, w);
-        // spVec_w lbd_w = spVec_w::Constant(1.);
+        dVec lbd_w = Eval_Initial_Equality_Multipliers(f_R, w);
 
         CSV_iteration_journalist CSV_journalist(fPath, iter_dir);
         std::ofstream f_mu(fPath + iter_dir + "mu.csv");
@@ -71,10 +70,10 @@ namespace FIPOPT::Sparse
         return LSFB_MAX_ITERATION_EXCEEDED;
     }
 
-    template <typename Derived, typename Vec_x, typename Vec_cI, typename LinSolver>
+    template <typename Derived, typename LinSolver>
     static LSFB_status Solve_Restoration_Phase(objective<Derived> &f_R,
-                                               MatrixBase<Vec_x> &x,
-                                               MatrixBase<Vec_cI> &z_x,
+                                               MatrixBase<dVec> &x,
+                                               MatrixBase<dVec> &z_x,
                                                const double &mu_bar,
                                                const std::string &fPath,
                                                LinSolver &KKT_solver,
@@ -87,9 +86,8 @@ namespace FIPOPT::Sparse
         w.conservativeResize(Nw);
         Eval_Restoration_Least_Squares(f_R, mu_bar, P.rho, w);
         dVec z_w(2*Nw);
-        z_w.head(Nx) = (z_x.array() < P.rho).select(z_x, Vec_x::Constant(P.rho));
+        z_w.head(Nx) = (z_x.array() < P.rho).select(z_x, dVec::Constant(P.rho, Nx));
         z_w.segment(Nx, Nw-Nx) = mu_bar * w.tail(Nw - Nx).cwiseInverse();
-        // z_w = spVec_w::Constant(1.);
         if (Solve_Restoration_LSFB(f_R, w, z_w, mu_bar, fPath, KKT_solver) == LSFB_ACCEPTED)
         {
             x = w.topRows(Nx);

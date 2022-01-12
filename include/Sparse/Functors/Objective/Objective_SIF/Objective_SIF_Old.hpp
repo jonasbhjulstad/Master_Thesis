@@ -12,7 +12,7 @@
 
 namespace FIPOPT
 {
-    template <int Nx, int Ng, int Nh, template <class, int, int> typename Base>
+    template <template <class, int, int> typename Base>
     struct objective_SIF_base : public Base<objective_SIF_base<Base>, Nx, Ng + Nh>
     {
 
@@ -32,14 +32,14 @@ namespace FIPOPT
         }
 
         template <typename BaseType>
-        inline spVec Eval_grad(const BaseType &x)
+        inline dVec Eval_grad(const BaseType &x)
         {
             CUTEST_ugr(&status, &Nx_, Vec_w(w).data(), grad_f_.data());
             return grad_f_;
         }
 
         template <typename BaseType>
-        inline spVec Eval_grad(const BaseType &x)
+        inline dVec Eval_grad(const BaseType &x)
         {
             return Eval_grad_dense(w).sparseView();
         }
@@ -58,7 +58,7 @@ namespace FIPOPT
         }
 
         template <typename BaseType>
-        inline spVec Eval_c(const BaseType &x)
+        inline dVec Eval_c(const BaseType &x)
         {
             double dummy_f;
             CUTEST_cfn(&status, &Nx_, &Nc_, x.data(), &dummy_f, c_.data());
@@ -105,7 +105,7 @@ namespace FIPOPT
             return s0_;
         }
 
-        inline Vec_x Get_x0()
+        inline dVec Get_x0()
         {
             return x0_;
         }
@@ -143,9 +143,9 @@ namespace FIPOPT
         int *icnh_;
 
         std::vector<Triplet> hessian_triplets;
-        Vec_x x0_;
-        Vec_x x_lb_;
-        Vec_x x_ub_;
+        dVec x0_;
+        dVec x_lb_;
+        dVec x_ub_;
         Vec_w grad_f_;
         spMat hessian_;
 

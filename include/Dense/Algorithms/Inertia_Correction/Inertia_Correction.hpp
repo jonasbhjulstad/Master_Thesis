@@ -4,7 +4,7 @@
 #include <Eigen/Eigenvalues>
 #include <Dense/Algorithms/Inertia_Correction/IC_Param.hpp>
 #include <Dense/Algorithms/Inertia_Correction/IC_Status.hpp>
-#include <Dense/KKT_System/KKT_System_Dense.hpp>
+#include <Dense/KKT_System/KKT_System.hpp>
 namespace FIPOPT::Dense
 {
 

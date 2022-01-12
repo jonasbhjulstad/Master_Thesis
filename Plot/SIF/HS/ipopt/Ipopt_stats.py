@@ -6,18 +6,18 @@ from matplotlib import ticker as mticker
 import sys
 import os
 
-baseFolder = "/home/build/FIPOPT/Data/SIF/ipopt/"
-rootFolder = "/home/build/FIPOPT/"
+ipoptFolder = "/home/deb/Documents/gitFIPOPT/Data/SIF/ipopt/"
+rootFolder = "/home/deb/Documents/gitFIPOPT/"
 sys.path.append(rootFolder + "build/test/Plot/")
 
-figFolder = "/home/build/MT/figures/"
+figFolder = "/home/deb/Documents/gitFIPOPT/figures/"
 
 def ipopt_stats():
 
     N_eq = 0
     N_ineq = 0
     SIF_files = []
-    for dirname in os.listdir(baseFolder):
+    for dirname in os.listdir(ipoptFolder):
         if dirname.endswith('.SIF.txt'):
             SIF_files.append(dirname)
     N_converged = 0
@@ -25,7 +25,7 @@ def ipopt_stats():
     SIF_stats = {"N_problems": len(SIF_files)}
     for res in SIF_files:
         SIF_res = {"name": res, "converged": False}
-        with open(baseFolder + res, 'r') as file:
+        with open(ipoptFolder + res, 'r') as file:
             lines = file.readlines()
             for line in lines:
                 if line.startswith("Number of Iterations"):

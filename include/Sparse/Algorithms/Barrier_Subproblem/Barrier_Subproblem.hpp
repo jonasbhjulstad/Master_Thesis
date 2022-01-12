@@ -13,12 +13,12 @@
 #include <Common/Utils/Print.hpp>
 namespace FIPOPT::Sparse
 {
-    template <typename Derived, typename Vec_x, typename Vec_cE, typename Vec_cI, typename LinSolver>
+    template <typename Derived, typename LinSolver>
             BS_status Solve_Barrier_Subproblem(
                 objective<Derived> &f,
-                MatrixBase<Vec_x> &x,
-                MatrixBase<Vec_cE> &lbd,
-                MatrixBase<Vec_cI> &z,
+                MatrixBase<dVec> &x,
+                MatrixBase<dVec> &lbd,
+                MatrixBase<dVec> &z,
                 const double &mu,
                 const double &tau_j,
                 const std::string &fPath,
@@ -32,7 +32,7 @@ namespace FIPOPT::Sparse
         const int Ng = Nz - 2 * Nx;
         const BS_param P(mu);
         spMat KKT_mat(N_A, N_A);
-        spVec KKT_vec(N_A);
+        dVec KKT_vec(N_A);
         dVec d_x(Nx);
         dVec d_lbd(Nh);
         dVec d_z(Nz);

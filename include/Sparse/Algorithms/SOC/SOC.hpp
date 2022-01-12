@@ -21,47 +21,33 @@ namespace FIPOPT::Sparse
         int max_iter;
     };
 
-    template <typename Derived, typename Derived_B, typename Vec_x, typename Vec_cE, typename Vec_cI>
+    template <typename Derived, typename Derived_B, typename dVec, typename dVec, typename dVec>
     inline void Eval_KKT_Value_SOC(
         objective<Derived> &f,
         barrier<Derived_B> &phi,
-        const SparseMatrixBase<Vec_x> &x,
-        const SparseMatrixBase<Vec_x> &d_x,
-        const SparseMatrixBase<Vec_cE> &lbd,
-        const SparseMatrixBase<Vec_cI> &z,
+        const MatrixBase<dVec> &x,
+        const MatrixBase<dVec> &d_x,
+        const MatrixBase<dVec> &lbd,
+        const MatrixBase<dVec> &z,
         const double &alpha,
-        spVec &KKT_vec)
+        dVec &KKT_vec)
     {
         const int Nx = x.rows();
         const int Nh = lbd.rows();
 
-        spVec top = -(phi.Eval_grad(x) - f.Eval_grad_cE(x).transpose() * lbd);
-        spVec bottom = -f.Eval_cE(x + alpha* d_x);
-
-
-        for (spVec::InnerIterator it(top); it; ++it)
-        {
-            KKT_vec.insert(it.index()) = it.value();
-        }
-        
-        for (spVec::InnerIterator it(bottom); it; ++it)
-        {
-            KKT_vec.insert(Nx + it.index()) = it.value();
-        }
+        KKT_vec.head(Nx) = -(phi.Eval_grad(x) - f.Eval_grad_cE(x).transpose() * lbd);
     }
 
-    template <typename Derived, typename Derived_B,
-              typename Mat_A, typename Vec_x, typename Vec_cE, typename Vec_cI,
-              typename LinSolver>
+    template <typename Derived, typename Derived_B,typename LinSolver>
     SOC_status Solve_SOC_System(objective<Derived> &f,
                                 barrier<Derived_B> &phi,
                                 FL_filter<Derived_B> &F,
-                                const SparseMatrixBase<Mat_A> &KKT_mat,
-                                const SparseMatrixBase<Vec_x> &x,
-                                const SparseMatrixBase<Vec_cE> &lbd,
-                                const SparseMatrixBase<Vec_cI> &z,
-                                SparseMatrixBase<Vec_x> &d_x,
-                                SparseMatrixBase<Vec_cE> &d_lbd,
+                                const SparseMatrixBase<spMat> &KKT_mat,
+                                const MatrixBase<dVec> &x,
+                                const MatrixBase<dVec> &lbd,
+                                const MatrixBase<dVec> &z,
+                                MatrixBase<dVec> &d_x,
+                                MatrixBase<dVec> &d_lbd,
                                 LinSolver &KKT_solver,
                                 const double &alpha = 1.,
                                 const SOC_param &P = SOC_param())
@@ -70,9 +56,9 @@ namespace FIPOPT::Sparse
         const int Nx = x.rows();
         const int Nh = lbd.rows();
         KKT_solver.compute(KKT_mat);
-        spVec KKT_vec_soc(N_A), sol(N_A);
-        spVec x_soc(Nx);
-        spVec d_x_cor = d_x;
+        dVec KKT_vec_soc(N_A), sol(N_A);
+        dVec x_soc(Nx);
+        dVec d_x_cor = d_x;
         double theta_old = F.Eval_theta(0.);
 
         F.Update_Direction(x, d_x);

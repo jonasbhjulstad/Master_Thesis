@@ -30,9 +30,9 @@ namespace FIPOPT::Sparse
         template <typename LinSolver>
         IC_status Solve_Inertia_Correction(
             SparseMatrixBase<spMat> &KKT_mat,
-            SparseMatrixBase<spVec> &KKT_vec,
-            spVec &d_x,
-            spVec &d_lbd,
+            MatrixBase<dVec> &KKT_vec,
+            dVec &d_x,
+            dVec &d_lbd,
             double &delta_w_last,
             const double &mu,
             LinSolver& KKT_solver,
@@ -50,7 +50,7 @@ namespace FIPOPT::Sparse
             spMat delta_mat(N_A, N_A);
             while(delta_w < P.delta_w_max)
             {
-                spVec sol(N_A); 
+                dVec sol(N_A); 
                 dVec KKT_eigvals(N_A);
                 KKT_eigvals = dVec(KKT_mat + delta_mat).eigenvalues().real();
                 Update_deltas(KKT_eigvals, delta_c, delta_w, delta_w_last, mu, P);

@@ -1,58 +1,54 @@
-#ifndef FIPOPT_LOGBARRIER_Sparse_HPP
-#define FIPOPT_LOGBARRIER_Sparse_HPP
+#ifndef FIPOPT_LOGBARRIER_DENSE_HPP
+#define FIPOPT_LOGBARRIER_DENSE_HPP
 #include <Common/EigenDataTypes.hpp>
-#include <Sparse/Functors/Barrier/Barrier.hpp>
-#include <Sparse/Functors/Objective/Objective.hpp>
-#include <Sparse/Functors/Barrier/Barrier_Messenger/Barrier_Messenger.hpp>
-#include <Sparse/Functors/Barrier/Barrier_Journalist/Barrier_Journalist.hpp>
+#include <Dense/Functors/Barrier/Barrier.hpp>
+#include <Dense/Functors/Objective/Objective.hpp>
+#include <Dense/Functors/Barrier/Barrier_Messenger/Barrier_Messenger.hpp>
+#include <Dense/Functors/Barrier/Barrier_Journalist/Barrier_Journalist.hpp>
 
 namespace FIPOPT::Sparse
 {
 
-    template <typename Derived, template <class> typename Base = barrier>
+    template <typename Derived, template <class,int,int,int> typename Base = barrier>
     struct logbarrier_base : public Base<logbarrier_base<Derived, Base>>
     {
         using Objective = objective<Derived>;
-
         using base_t = Base<logbarrier_base<Derived, Base>>;
 
     protected:
-        objective<Derived> &f_;
+        Objective &f_;
         const double mu_;
 
     public:
         template <typename Observer>
-        logbarrier_base(objective<Derived> &f, const double &mu, Observer &obs) : f_(f), mu_(mu), base_t(obs, mu) {}
+        logbarrier_base(Objective &f, const double &mu, Observer& obs) : f_(f), mu_(mu), base_t(obs, mu) {}
 
-        logbarrier_base(objective<Derived> &f, const double &mu) : f_(f), mu_(mu) {}
+        logbarrier_base(Objective &f, const double &mu) : f_(f), mu_(mu) {}
 
         template <typename BaseType>
-        inline spVal operator()(const BaseType &x)
+        inline Val operator()(const BaseType &x)
         {
-            spVal res = f_(x).sparseView();
-            spVec cI = f_.Eval_cI(x);
-            for (spVec::InnerIterator it(cI); it; ++it)
-            {
-                res.coeffRef(0) += mu_ * log(it.value());
-            }
-            return res;
+            dVec barrier_term = dVec(f_.Eval_cI(x).array().log());
+            barrier_term = dVec((barrier_term.array().isInf()).select(0., barrier_term.array()));
+            return f_(x) - Val(mu_ * (barrier_term.array().sum()));
         }
 
         template <typename BaseType>
-        inline spVec Eval_grad(const BaseType &x)
+        inline dVec Eval_grad(const BaseType &x)
         {
-            spVec s_inv = f_.Eval_cI(x).cwiseInverse();
-            return f_.Eval_grad(x) - mu_ * f_.Eval_grad_cI(x).transpose() * (s_inv);
+            dVec s_inv = f_.Eval_cI(x).cwiseInverse();
+            s_inv = dVec((s_inv.array() > 0).select(s_inv, dVec::Zero()));
+            return f_.Eval_grad(x) - mu_ * f_.Eval_grad_cI(x).transpose() *(s_inv);
         }
 
         template <typename BaseType>
-        inline spVec Eval_cE(const BaseType &x)
+        inline dVec Eval_cE(const BaseType &x)
         {
             return f_.Eval_cE(x);
         }
 
         template <typename BaseType>
-        inline spVec Eval_cI(const BaseType &x)
+        inline dVec Eval_cI(const BaseType &x)
         {
             return f_.Eval_cI(x);
         }
@@ -70,13 +66,8 @@ namespace FIPOPT::Sparse
     };
 
     template <typename Derived>
-    logbarrier(objective<Derived> &f, const double &mu) -> logbarrier<Derived>;
+    logbarrier(objective<Derived>& f, const double& mu) -> logbarrier<Derived>;
 
-    // template <typename Derived>
-    // struct logbarrier_messenger : public logbarrier_base<Derived, barrier_messenger>
-    // {
-    //     using logbarrier_base<Derived, barrier_journalist>::logbarrier_base;
-    // };
 
 }
 

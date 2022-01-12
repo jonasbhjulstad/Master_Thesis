@@ -1,1 +1,1 @@
-# add_executable(NC_QP NC_QP.cpp)
+add_executable(NC_QP NC_QP.cpp)

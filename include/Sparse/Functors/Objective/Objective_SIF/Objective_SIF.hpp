@@ -77,7 +77,7 @@ namespace FIPOPT::Sparse
         }
 
         template <typename T>
-        inline spVec Eval_grad(const MatrixBase<T> &x)
+        inline dVec Eval_grad(const MatrixBase<T> &x)
         {
             dVec dense_x = dVec(x);
             CUTEST_ugr(&status, &Nx_, dense_x.data(), grad_f_.data());
@@ -99,13 +99,13 @@ namespace FIPOPT::Sparse
         }
 
         template <typename T>
-        inline spVec Eval_h(const MatrixBase<T> &x)
+        inline dVec Eval_h(const MatrixBase<T> &x)
         {
             return Eval_c(x).topRows(Nh_);
         }
 
         template <typename T>
-        inline spVec Eval_grad_h(const MatrixBase<T> &x)
+        inline dVec Eval_grad_h(const MatrixBase<T> &x)
         {
             return Eval_grad_c(x).topRows(Nh_);
         }
@@ -119,7 +119,7 @@ namespace FIPOPT::Sparse
         }
 
         template <typename T>
-        inline spVec Eval_g(const MatrixBase<T> &x)
+        inline dVec Eval_g(const MatrixBase<T> &x)
         {
             return Eval_c(x).bottomRows(Ng_);
         }
@@ -235,7 +235,7 @@ namespace FIPOPT::Sparse
         }
 
         template <typename T>
-        inline spVec Eval_c(const MatrixBase<T> &x)
+        inline dVec Eval_c(const MatrixBase<T> &x)
         {
             double dummy_f;
             bool jtrans = false;

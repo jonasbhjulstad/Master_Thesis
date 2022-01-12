@@ -5,25 +5,23 @@
 namespace FIPOPT::Sparse
 {
     template <typename Derived>
-    inline void Eval_Restoration_Least_Squares(objective<Derived> &f_R,
-                                                const double &mu,
-                                                const double &rho,
-                                                spVec& w)
+    inline dVec Eval_Restoration_Least_Squares(objective<Derived> &f_R,
+                                                                       const double &mu,
+                                                                       const double &rho,
+                                                                       MatrixBase<dVec> &x)
     {
-        const int Nh_w = f_R.Get_Nh();
-        const int Nw = f_R.Get_Nx();
-        const int Nx = Nw - 2*Nh_w;
-        
-        spVec cE = f_R.Eval_cE(w);
-        spVec t0(Nw);
-        spVec t1(Nw);
-        for (spVec::InnerIterator it(cE); it; ++it)
-        {
-            double mu_rho = mu - rho*it.value()/(2*rho);
-            double LS_res = mu_rho + sqrt(pow(mu_rho, 2) + mu*it.value()/(2*rho));
-            w.insert(Nx + it.index()) = LS_res;
-            w.insert(Nx + Nh_w + it.index()) = LS_res + it.index();
-        }
+        int Nw = f_R.Get_Nx();
+        int Nh_w = f_R.Get_Nh();
+        int Nx = Nw - 2*Nh_w;
+        dVec w = dVec::Constant(0., Nw);
+        w.head(Nx) = x;
+        dVec cE = f_R.Eval_cE(w);
+        dVec t0 = dVec((mu - rho * cE.array()) / (2 * rho));
+        dVec t1 = dVec(((mu - rho * cE.array()) / (2 * rho)).square() + mu * cE.array() / (2 * rho)).cwiseSqrt();
+        w.segment(Nx, Nh_w) = t0 + t1;
+        w.tail(Nh_w) = cE + w.segment(Nx, Nh_w);
+
+        return w;
     }
 }
 

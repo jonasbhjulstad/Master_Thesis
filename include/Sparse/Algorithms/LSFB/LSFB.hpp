@@ -39,7 +39,7 @@ namespace FIPOPT::Sparse
             z = (z.array() < 1e20).select(z, dVec::Constant(z.rows(), 1e20));
             
 
-            dVec lbd = Eval_Initial_Multipliers(f, x, dVec(z.middleRows(Nh, Nx)), dVec(z.bottomRows(Nx)), P.lbd_max);
+            dVec lbd = Eval_Initial_Equality_Multipliers(f, x, dVec(z.middleRows(Nh, Nx)), dVec(z.bottomRows(Nx)), P.lbd_max);
             CSV_iteration_journalist CSV_journalist(fPath, iter_dir);
             std::ofstream f_mu(fPath + iter_dir + "mu.csv");
             std::ofstream f_obj(fPath + iter_dir + "obj.csv");
@@ -49,7 +49,7 @@ namespace FIPOPT::Sparse
             {
                 CSV_journalist.Write(x, lbd, z);
                 std::cout << Eval_Global_Optimality_Error(f, x, lbd, z, P.s_max) << std::endl;
-                f_theta << l2_norm(f.Eval_cE(x)) << '\n';
+                f_theta << f.Eval_cE(x).template lpNorm<2>() << '\n';
                 f_obj << Eval_Global_Optimality_Error(f, x, lbd, z, P.s_max) << ", " << f(x) << '\n';
                 if (Eval_Global_Optimality_Error(f, x, lbd, z, P.s_max) < P.eps_tol)
                 {
@@ -74,7 +74,6 @@ namespace FIPOPT::Sparse
                     {
                         std::string res_fPath = fPath + "Inequality_Restoration_" + std::to_string(j) + "/";
                         mu_bar = std::max(mu, f.Eval_cI(x).topRows(Ng).norm());
-                        // mu_bar = mu;
                         inequality_restoration f_R(f, x, mu_bar, P.rho);
                         fs::create_directory(res_fPath);
                         Solve_Restoration_Phase(f_R, x, z_x, mu_bar, res_fPath, KKT_solver);

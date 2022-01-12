@@ -7,14 +7,14 @@ from matplotlib.ticker import FormatStrFormatter
 from matplotlib import ticker as mticker
 
 import sys
-rootFolder = "/home/build/FIPOPT/"
+rootFolder = "/home/deb/Documents/gitFIPOPT/"
 sys.path.append(rootFolder + "build/Plot/SIF/")
 
 from Binder_SIF import *
 pFolder = rootFolder + "Data/SIF/Problem/"
 outsdif = pFolder + "OUTSDIF.d"
 dimFolder = rootFolder + "include/SIF_Dimensions/Dimensions.csv"
-figFolder = "/home/build/MT/figures"
+figFolder = "/home/deb/Documents/gitFIPOPT/figures"
 
 
 def split(a, n):

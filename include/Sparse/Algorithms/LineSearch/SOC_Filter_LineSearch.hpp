@@ -6,21 +6,19 @@
 namespace FIPOPT::Sparse
 {
 
-    template <typename Derived, typename Derived_B, 
-    typename Mat_A, typename Vec_x, typename Vec_cE, typename Vec_cI,
-    typename LinSolver>
+    template <typename Derived, typename Derived_B, typename LinSolver>
     LS_status Solve_Filter_LineSearch(
         objective<Derived> &f,
         barrier<Derived_B> &phi,
         FL_filter<Derived_B> &F,
-        const SparseMatrixBase<Mat_A> & KKT_mat,
-        const SparseMatrixBase<Vec_x> &x,
-        const SparseMatrixBase<Vec_cE> &lbd,
-        const SparseMatrixBase<Vec_cI> &z,
+        const SparseMatrixBase<spMat> & KKT_mat,
+        const MatrixBase<dVec> &x,
+        const MatrixBase<dVec> &lbd,
+        const MatrixBase<dVec> &z,
         const double &max_iter,
         double &alpha,
-        SparseMatrixBase<Vec_x> &d_x,
-        SparseMatrixBase<Vec_cE> &d_lbd,
+        MatrixBase<dVec> &d_x,
+        MatrixBase<dVec> &d_lbd,
         LinSolver& KKT_solver)
     {
         alpha = 1.;

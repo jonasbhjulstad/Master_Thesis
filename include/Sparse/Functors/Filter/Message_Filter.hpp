@@ -1,6 +1,6 @@
 #ifndef FIPOPT_FILTER_HPP
 #define FIPOPT_FILTER_HPP
-#include <Sparse/Functors/Filter/Filter_Status.hpp>
+#include <Dense/Functors/Filter/Filter_Status.hpp>
 #include <string>
 namespace FIPOPT::Sparse
 {

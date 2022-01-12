@@ -8,15 +8,18 @@ import os
 import re
 from collections import Counter
 matplotlib.use('TkAgg')
-sys.path.append('/home/build/FIPOPT/Data/SIF/ipopt/')
+sys.path.append('/home/deb/Documents/gitFIPOPT/Data/SIF/ipopt/')
 
 
 # from ipopt_HS_stat import IPOPT_stats
-baseFolder = "/home/build/FIPOPT/Data/SIF/"
-pFolder = baseFolder + "Problem/"
-dimFolder = "/home/build/FIPOPT/include/SIF_Dimensions/Dimensions.csv"
-SIF_Folder = "/home/deb/Downloads/cutest/sifdecode/sif/"
-Mastsif = "/home/deb/Downloads/cutest/sifdecode/sif/"
+baseFolder = "/home/deb/Documents/gitFIPOPT/Data/SIF"
+
+HS_Folder = baseFolder + "/HS"
+pFolder = baseFolder + "../Problem"
+dimFolder = "/home/deb/Documents/gitFIPOPT/include/SIF_Dimensions/Dimensions.csv"
+SIF_Folder = "/home/deb/Downloads/cutest/sifdecode/sif"
+Mastsif = "/home/deb/Downloads/cutest/sifdecode/sif"
+saveFolder = "/home/deb/Documents/FIPOPT"
 
 def fix_dim_vec(mat):
     if len(mat) == 0:
@@ -52,10 +55,10 @@ def count_subproblem_iter(fPath):
             N_iter += sum(1 for line in open(fPath + "/" + subdirname + "/" + "x.csv"))
     return N_iter
 
-rootFolder = "/home/build/FIPOPT/"
+rootFolder = "/home/deb/Documents/gitFIPOPT/"
 sys.path.append(rootFolder + "build/test/Plot/")
 
-figFolder = "/home/build/MT/figures/"
+figFolder = "/home/deb/Documents/gitFIPOPT/figures/"
 outsdif = pFolder + "OUTSDIF.d"
 
 def read_timing(fpath):
@@ -95,16 +98,17 @@ if __name__ == '__main__':
     classification_str = ""
     Lnames = []
     for dirname in SIF_folders:
+        SIFProb_Folder = SIFProb_Folder
         probstats = {"N_ineq": 0, "N_eq": 0, "Converged": False, "almost_converged": False}
-        probstats['Nx'] = get_dim(baseFolder + dirname + "/x.csv")
-        probstats['N_lbd'] = get_dim(baseFolder + dirname + "/lbd.csv")
-        probstats['Nz'] = get_dim(baseFolder + dirname + "/z.csv")
-        # probstats['time'] = read_timing(baseFolder + dirname + "/timing.txt")
-        # probstats['time_memoized'] = read_timing(baseFolder + dirname + "/timing_memoized.txt")
-        # probstats['time_memoized'] = read_timing(baseFolder + dirname + "/timing_memoized.txt")
+        probstats['Nx'] = get_dim(SIFProb_Folder + "/x.csv")
+        probstats['N_lbd'] = get_dim(SIFProb_Folder + "/lbd.csv")
+        probstats['Nz'] = get_dim(SIFProb_Folder + "/z.csv")
+        # probstats['time'] = read_timing(SIFProb_Folder + "/timing.txt")
+        # probstats['time_memoized'] = read_timing(SIFProb_Folder + "/timing_memoized.txt")
+        # probstats['time_memoized'] = read_timing(SIFProb_Folder + "/timing_memoized.txt")
         almost_converged = False
         mu_small = False
-        for subdirname in os.listdir(baseFolder + dirname + "/"):
+        for subdirname in os.listdir(SIFProb_Folder + "/"):
             if subdirname.startswith("Inequality_Restoration"): 
                 probstats["N_ineq"] += 1
             elif subdirname.startswith("Equality_Restoration"): 
@@ -115,14 +119,14 @@ if __name__ == '__main__':
         if not almost_converged:
             not_converged.append(dirname)
 
-        with open(baseFolder + dirname + "/success.txt", 'r') as file:
+        with open(SIFProb_Folder + "/success.txt", 'r') as file:
             if int(file.readline()) == 1:
                 probstats['Converged'] = True
                 N_converged +=1
             else:
                 if almost_converged:
                     print(dirname)
-        obj = np.genfromtxt(baseFolder + dirname + '/obj.csv', delimiter=', ')
+        obj = np.genfromtxt(SIFProb_Folder + '/obj.csv', delimiter=', ')
         if len(obj.shape) > 1:
             probstats['obj'] = obj[-1,0]
         elif obj.shape == 1:
@@ -130,13 +134,13 @@ if __name__ == '__main__':
         else:
             probstats['obj'] = np.inf
         x_ipopt_sol = []
-        with open(baseFolder + 'ipopt/' + dirname + '.txt', 'r') as file:
+        with open(HS_Folder + 'ipopt/' + dirname + '.txt', 'r') as file:
             for line in file.readlines():
                 if line.startswith('final x unscaled'):
                     x_ipopt_sol.append(float(line.split('=')[-1]))
         x_sol = []
         if (not probstats['Converged']) and mu_small: 
-            with open(baseFolder + dirname + '/mu_0.000000/x.csv', 'r') as file:
+            with open(SIFProb_Folder + '/mu_0.000000/x.csv', 'r') as file:
                 x_sol = np.fromstring(file.readlines()[-1], sep=', ')
                 inf_dist = np.linalg.norm(x_sol - np.array(x_ipopt_sol), np.inf)
                 print(inf_dist)
@@ -145,7 +149,7 @@ if __name__ == '__main__':
                     probstats['almost_converged'] = True
                     N_almost_converged += 1
         # print(inf_dist)
-        with open(SIF_Folder + dirname, 'r') as file:
+        with open(SIF_Folder + "/" + dirname, 'r') as file:
             for line in file.readlines():
                 if 'SOLTN' in line:
                     probstats['SOLTN'] = float(re.findall(r'\d+', line)[-1])
@@ -155,7 +159,7 @@ if __name__ == '__main__':
                             # probstats['almost_converged'] = True
                             # N_almost_converged += 1
 
-        probstats["N_iter"] = count_subproblem_iter(baseFolder + dirname + "/")
+        probstats["N_iter"] = count_subproblem_iter(SIFProb_Folder + "/")
         probstats["name"] = dirname
         SIF_stats[dirname] = probstats
         classification_list = [[], [], [], []]
@@ -218,7 +222,7 @@ if __name__ == '__main__':
     print(N_converged, N_almost_converged)
     fig.subplots_adjust(hspace=0.3)
     # plt.show()
-    fig.savefig(figFolder + 'HS_classification.pdf')
+    fig.savefig('HS_classification.pdf')
     plt.close('all')
     # ax[1][0].bar(smoothCount.keys(), smoothCount.values(), color='gray')
     # ax[1][1].bar(derdegCount.keys(), derdegCount.values(), color='gray')

@@ -8,48 +8,48 @@
 #include <iostream>
 namespace FIPOPT::Sparse
 {
-    template <typename Derived, typename Vec_x>
+    template <typename Derived>
     inline double Eval_Primal_Infeasibility(
         objective<Derived> &f,
-        const MatrixBase<Vec_x> &x)
+        const MatrixBase<dVec> &x)
     {
         return linf_norm(f.Eval_cE(x));
     }
 
-    template <typename Derived, typename Derived_B, typename Vec_x, typename Vec_cE, typename Vec_cI>
+    template <typename Derived, typename Derived_B>
     inline double Eval_Dual_Infeasibility(
         objective<Derived> &f,
         barrier<Derived_B> &phi,
-        const MatrixBase<Vec_x> &x,
-        const MatrixBase<Vec_cE> &lbd,
-        const MatrixBase<Vec_cI> &z,
+        const MatrixBase<dVec> &x,
+        const MatrixBase<dVec> &lbd,
+        const MatrixBase<dVec> &z,
         const double &s_max)
     {
         const double s_d = std::max(s_max, FIPOPT::l1_norm(z) / z.rows()) / s_max;
-        spMat KKT_0 = -(f.Eval_grad(x) - f.Eval_grad_cE(x).transpose() * lbd - f.Eval_grad_cI(x).transpose() * z);
+        dVec KKT_0 = -(f.Eval_grad(x) - f.Eval_grad_cE(x).transpose() * lbd - f.Eval_grad_cI(x).transpose() * z);
         return linf_norm(KKT_0) / s_d;
     }
-    template <typename Derived, typename Vec_x, typename Vec_cE, typename Vec_cI>
+    template <typename Derived>
     inline double Eval_Complementary_Slackness_Infeasibility(
         objective<Derived> &f,
-        const MatrixBase<Vec_x> &x,
-        const MatrixBase<Vec_cE> &lbd,
-        const MatrixBase<Vec_cI> &z,
+        const MatrixBase<dVec> &x,
+        const MatrixBase<dVec> &lbd,
+        const MatrixBase<dVec> &z,
         const double &mu,
         const double &s_max)
     {
         const int Nz = z.rows();
         const double s_c = std::max(s_max, (l1_norm(lbd) + l1_norm(z)) / (lbd.rows() + z.rows())) / s_max;
-        spMat KKT_2 = f.Eval_cI(x).cwiseProduct(z) - dVec::Constant(Nz, mu);
+        dVec KKT_2 = f.Eval_cI(x).cwiseProduct(z) - dVec::Constant(Nz, mu);
         return linf_norm(KKT_2) / s_c;
     }
 
-    template <typename Derived, typename Derived_B, typename Vec_x, typename Vec_cE, typename Vec_cI>
+    template <typename Derived, typename Derived_B>
     inline double Eval_Barrier_Optimality_Error(objective<Derived> &f,
                                                 barrier<Derived_B> &phi,
-                                                const MatrixBase<Vec_x> &x,
-                                                const MatrixBase<Vec_cE> &lbd,
-                                                const MatrixBase<Vec_cI> &z,
+                                                const MatrixBase<dVec> &x,
+                                                const MatrixBase<dVec> &lbd,
+                                                const MatrixBase<dVec> &z,
                                                 const double &s_max)
     {
         const double inf_dual = Eval_Dual_Infeasibility(f, phi, x, lbd, z, s_max);
@@ -58,11 +58,11 @@ namespace FIPOPT::Sparse
         return std::max({inf_dual, inf_primal, inf_compl});
     }
 
-    template <typename Derived, typename Vec_x, typename Vec_cE, typename Vec_cI>
+    template <typename Derived>
     inline double Eval_Global_Optimality_Error(objective<Derived> &f,
-                                               const MatrixBase<Vec_x> &x,
-                                               const MatrixBase<Vec_cE> &lbd,
-                                               const MatrixBase<Vec_cI> &z,
+                                               const MatrixBase<dVec> &x,
+                                               const MatrixBase<dVec> &lbd,
+                                               const MatrixBase<dVec> &z,
                                                const double &s_max)
 
     {

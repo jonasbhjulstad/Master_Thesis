@@ -41,16 +41,11 @@ namespace FIPOPT::Dense
         {
             namespace fs = std::filesystem;
             fs::current_path(pwd);
-            fs::create_directories(ID + "/dense/");
-            // for (int i; i < N_METHODS; i++)
-            // {
-            //     file_x[i] = Allocate_Open_File(pwd + ID + "/dense/" + fnames_[i] + "_input.csv");
-            //     file_data[i] = Allocate_Open_File(pwd + ID + "/dense/" + fnames_[i] + "_data.csv");
-            // }
+            fs::create_directories(ID);
             for (int i; i < N_METHODS; i++)
             {
-                file_x[i].open(pwd + ID + "/dense/" + fnames_[i] + "_input.csv");
-                file_data[i].open(pwd + ID + "/dense/" + fnames_[i] + "_data.csv");
+                file_x[i].open(pwd + ID + "/" + fnames_[i] + "_input.csv");
+                file_data[i].open(pwd + ID + "/" + fnames_[i] + "_data.csv");
             }
         }
 

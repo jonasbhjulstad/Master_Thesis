@@ -1,8 +1,8 @@
-#ifndef FIPOPT_LOGBARRIER_MEMOIZED_Sparse_HPP
-#define FIPOPT_LOGBARRIER_MEMOIZED_Sparse_HPP
-#include <Sparse/Functors/Objective/Objective.hpp>
-#include <Sparse/Functors/Barrier/Barrier_Memoized/Barrier_Memoized.hpp>
-#include <Sparse/Functors/Barrier/Logbarrier.hpp>
+#ifndef FIPOPT_LOGBARRIER_MEMOIZED_DENSE_HPP
+#define FIPOPT_LOGBARRIER_MEMOIZED_DENSE_HPP
+#include <Dense/Functors/Objective/Objective.hpp>
+#include <Dense/Functors/Barrier/Barrier_Memoized/Barrier_Memoized.hpp>
+#include <Dense/Functors/Barrier/Logbarrier.hpp>
 
 namespace FIPOPT::Sparse
 {

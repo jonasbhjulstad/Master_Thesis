@@ -1,7 +1,10 @@
 #include <Common/EigenDataTypes.hpp>
 #include <Dense/Algorithms/LSFB/LSFB.hpp>
+
+//Switch between nonlinear inequality/equality-constraints:
 #include <Dense/Functors/Objective/Objective_QP/NC_QP.hpp>
 // #include <Dense/Functors/Objective/Objective_QP/NE_QP.hpp>
+
 #include <iostream>
 #include <Dense/Algorithms/LSFB/LSFB.hpp>
 #include <Dense/Initial_Multipliers/Initial_Multipliers.hpp>
@@ -21,7 +24,7 @@ int main()
 
     using Vec_x = Eigen::Matrix<double, Nx, 1>;
 
-    const std::string fPath = "/home/build/FIPOPT/Data/NC_QP/SOC/";
+    const std::string fPath = "/home/deb/Documents/gitFIPOPT/Data/NC_QP/SOC/";
     Vec_x x0 = load_csv<Vec_x>(fPath + "x0.csv");
 
     NC_QP f;

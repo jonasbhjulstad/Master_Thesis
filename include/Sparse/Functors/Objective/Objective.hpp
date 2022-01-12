@@ -30,7 +30,7 @@ namespace FIPOPT::Sparse
             return static_cast<Derived *>(this)->operator()(x);
         }
 
-        inline spVec Eval_grad(const MatrixBase<dVec> &x)
+        inline dVec Eval_grad(const MatrixBase<dVec> &x)
         {
             return static_cast<Derived *>(this)->Eval_grad(x);
         }
@@ -40,11 +40,11 @@ namespace FIPOPT::Sparse
             return static_cast<Derived *>(this)->Eval_hessian_f(x);
         }
 
-        inline spVec Eval_cE(const MatrixBase<dVec> &x)
+        inline dVec Eval_cE(const MatrixBase<dVec> &x)
         {
             if (Nh_ == 0)
             {
-                return spVec(0);
+                return dVec(0);
             }
             else
             {
@@ -81,7 +81,7 @@ namespace FIPOPT::Sparse
             return Eval_hessian_f(x) + Eval_hessian_cE(x, lbd);
         }
 
-        inline spVec Eval_cI(const MatrixBase<dVec> &x)
+        inline dVec Eval_cI(const MatrixBase<dVec> &x)
         {
             dVec cI(Ng_ + 2 * Nx_);
             if (Ng_ > 0)
@@ -142,7 +142,7 @@ namespace FIPOPT::Sparse
         int Nx_, Ng_, Nh_;
 
     private:
-        spVec cI_;
+        dVec cI_;
         spMat grad_cI_;
     };
 }
