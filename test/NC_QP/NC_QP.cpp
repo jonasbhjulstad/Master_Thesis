@@ -21,7 +21,7 @@ int main()
 
     using Vec_x = Eigen::Matrix<double, Nx, 1>;
 
-    const std::string fPath = "/home/build/FIPOPT/Data/NC_QP/SOC/";
+    const std::string fPath = "/home/deb/Documents/gitFIPOPT/Data/NC_QP/SOC/";
     Vec_x x0 = load_csv<Vec_x>(fPath + "x0.csv");
 
     NC_QP f;

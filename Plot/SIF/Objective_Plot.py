@@ -7,12 +7,12 @@ import os
 from os.path import basename
 from os import path
 
-sys.path.append("/home/build/FIPOPT/Release/Plot/SIF/")
-pFolder = "/home/build/FIPOPT/Data/SIF/"
-baseFolder = "/home/build/FIPOPT/Data/SIF/"
+sys.path.append("/home/deb/Documents/gitFIPOPT/Release/Plot/SIF/")
+pFolder = "/home/deb/Documents/gitFIPOPT/Data/SIF/"
+baseFolder = "/home/deb/Documents/gitFIPOPT/Data/SIF/"
 
 
-rootFolder = "/home/build/FIPOPT/"
+rootFolder = "/home/deb/Documents/gitFIPOPT/"
 figFolder = "/home/build/MT/figures/"
 sys.path.append(rootFolder + "build/test/Plot/")
 
@@ -108,28 +108,28 @@ def Plot_Objective(fname):
                 res_f = eq_f_vals.pop(0)
                 res_th = eq_th_vals.pop(0)
             
-            if res_f:
-                for res_obj, res_theta in zip(res_f, res_th):
-                    ax_res[0].scatter(k, res_obj[0,1], color='k', marker='.')
-                    ax_res[1].scatter(k, res_theta[0,0], color='k', marker='.')
-                    xt = list(range(k, k+ res_obj.shape[0], 1))
-                    fill_background(ax_res[0], k, res_obj.shape[0])
-                    fill_background(ax_res[1], k, res_obj.shape[0])
-                    ax_res[0].plot(xt, res_obj[:,1], color='k', label=r"$f_R(x_k^{(j)})$")
-                    ax_res[1].plot(xt, res_obj[:,0], color='k', label=r"$E_{R,\mu_j}(x_k^{(j)})$")        
-                    ax_res[0].scatter([xt[0], xt[-1]], [res_obj[0,1], res_obj[-1, 1]], color='k', marker='.')
-                    ax_res[1].scatter([xt[0], xt[-1]], [res_obj[0,0], res_obj[-1, 0]], color='k', marker='.')
-                    k += res_obj.shape[0]
-                    obj_prev = []
-                    th_prev = []
-                    # if i != 0:
-                        # ax_res[0].plot([k-1, k], [obj_prev[1], res_obj[0,1]], color='k')
-                        # ax_res[1].plot([k-1, k], [obj_prev[0], res_obj[0,0]], color='k', linestyle='dotted')
-                    # obj_prev = res_obj[-1,:]
-                    if is_constrained:
-                        fill_background(ax_res[2], k, res_obj.shape[0])
-                        ax_res[2].scatter([xt[0], xt[-1]], [res_theta[0], res_theta[-1]], color='k', marker='.')
-                        ax_res[2].plot(xt, res_theta, color='k', label=r"$E_{R,\mu_j}(x_k^{(j)})$")        
+            # if res_f:
+            #     for res_obj, res_theta in zip(res_f, res_th):
+            #         ax_res[0].scatter(k, res_obj[0,1], color='k', marker='.')
+            #         ax_res[1].scatter(k, res_theta[0,0], color='k', marker='.')
+            #         xt = list(range(k, k+ res_obj.shape[0], 1))
+            #         fill_background(ax_res[0], k, res_obj.shape[0])
+            #         fill_background(ax_res[1], k, res_obj.shape[0])
+            #         ax_res[0].plot(xt, res_obj[:,1], color='k', label=r"$f_R(x_k^{(j)})$")
+            #         ax_res[1].plot(xt, res_obj[:,0], color='k', label=r"$E_{R,\mu_j}(x_k^{(j)})$")        
+            #         ax_res[0].scatter([xt[0], xt[-1]], [res_obj[0,1], res_obj[-1, 1]], color='k', marker='.')
+            #         ax_res[1].scatter([xt[0], xt[-1]], [res_obj[0,0], res_obj[-1, 0]], color='k', marker='.')
+            #         k += res_obj.shape[0]
+            #         obj_prev = []
+            #         th_prev = []
+            #         # if i != 0:
+            #             # ax_res[0].plot([k-1, k], [obj_prev[1], res_obj[0,1]], color='k')
+            #             # ax_res[1].plot([k-1, k], [obj_prev[0], res_obj[0,0]], color='k', linestyle='dotted')
+            #         # obj_prev = res_obj[-1,:]
+            #         if is_constrained:
+            #             fill_background(ax_res[2], k, res_obj.shape[0])
+            #             ax_res[2].scatter([xt[0], xt[-1]], [res_theta[0], res_theta[-1]], color='k', marker='.')
+            #             ax_res[2].plot(xt, res_theta, color='k', label=r"$E_{R,\mu_j}(x_k^{(j)})$")        
 
             if (i != 0) and (np.any(obj_prev)):
                 ax[0].plot([k-1, k], [obj_prev[1], obj[0,1]], color='k')

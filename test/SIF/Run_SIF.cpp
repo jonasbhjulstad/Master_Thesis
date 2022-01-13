@@ -24,18 +24,18 @@ int main()
     using Mat_A = Eigen::Matrix<double, Nx + Nh, Nx + Nh>;
     using Vec_x = Eigen::Matrix<double, Nx, 1>;
 
-    const std::string SIF_path = "/home/build/FIPOPT/Data/SIF/Problem/";
+    const std::string SIF_path = "/home/deb/Documents/gitFIPOPT/Data/SIF/Problem/";
     const std::string SIFname = load_SIF_name(SIF_path + "probname.txt");
-    const std::string dPath = "/home/build/FIPOPT/Data/SIF/";
+    const std::string dPath = "/home/deb/Documents/gitFIPOPT/Data/SIF/";
     const std::string output_path = dPath + SIFname + "/";
     const std::string journalist_ID = "journalist_f";
 
     // objective_SIF<Nx, Ng, Nh> f(SIF_path + "OUTSDIF.d");
 
-    // objective_SIF_memoized<Nx, Ng, Nh> f(SIF_path + "OUTSDIF.d");
+    objective_SIF_memoized<Nx, Ng, Nh> f(SIF_path + "OUTSDIF.d");
 
-    observer_journalist<Nx, Ng, Nh> journalist_f(journalist_ID, output_path);
-    objective_SIF_journalist<Nx, Ng, Nh> f(SIF_path + "OUTSDIF.d", journalist_f);
+    // observer_journalist<Nx, Ng, Nh> journalist_f(journalist_ID, output_path);
+    // objective_SIF_journalist<Nx, Ng, Nh> f(SIF_path + "OUTSDIF.d", journalist_f);
     
     std::ofstream file(dPath + SIFname + "/success.txt");
     Vec_x x0 = f.Get_x0();

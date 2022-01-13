@@ -5,8 +5,8 @@ import pandas as pd
 import matplotlib
 import sys
 matplotlib.use
-sys.path.append("/home/build/FIPOPT/Release/Plot/Nonlinear_QP/")
-rootFolder = "/home/build/FIPOPT/"
+sys.path.append("/home/deb/Documents/gitFIPOPT/Release/Plot/Nonlinear_QP/")
+rootFolder = "/home/deb/Documents/gitFIPOPT/"
 pFolder_SOC = rootFolder + "Data/NC_QP/SOC/Trajectory/"
 pFolder_NONSOC = rootFolder + "Data/NC_QP/NONSOC/Trajectory/"
 figFolder = "/home/build/MT/figures/"

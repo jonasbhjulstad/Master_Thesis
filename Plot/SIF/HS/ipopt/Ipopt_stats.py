@@ -6,8 +6,8 @@ from matplotlib import ticker as mticker
 import sys
 import os
 
-baseFolder = "/home/build/FIPOPT/Data/SIF/ipopt/"
-rootFolder = "/home/build/FIPOPT/"
+baseFolder = "/home/deb/Documents/gitFIPOPT/Data/SIF/ipopt/"
+rootFolder = "/home/deb/Documents/gitFIPOPT/"
 sys.path.append(rootFolder + "build/test/Plot/")
 
 figFolder = "/home/build/MT/figures/"

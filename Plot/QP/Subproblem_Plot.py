@@ -6,9 +6,9 @@ import matplotlib
 from matplotlib import ticker as mticker
 import sys
 matplotlib.use
-sys.path.append("/home/build/FIPOPT/build/test/Plot/")
+sys.path.append("/home/deb/Documents/gitFIPOPT/build/test/Plot/")
 
-pFolder = "/home/build/FIPOPT/Data/QP/"
+pFolder = "/home/deb/Documents/gitFIPOPT/Data/QP/"
 
 from Binder_QP import *
 
@@ -43,7 +43,7 @@ def load_QP_params():
 
 
 
-rootFolder = "/home/build/FIPOPT/"
+rootFolder = "/home/deb/Documents/gitFIPOPT/"
 sys.path.append(rootFolder + "build/test/Plot/")
 
 pFolder = rootFolder + "Data/QP/"

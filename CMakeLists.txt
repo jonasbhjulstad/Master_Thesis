@@ -10,7 +10,7 @@ find_package(PythonLibs REQUIRED)
 find_package (Eigen3 3.3 REQUIRED NO_MODULE)
 
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CUTEST_STATIC_LIB_PATH "$ENV{CUTEST}/objects/pc64.lnx.gfo/double/libcutest.a")
 set(CUTEST_INCLUDE_PATH "$ENV{CUTEST}/include")
