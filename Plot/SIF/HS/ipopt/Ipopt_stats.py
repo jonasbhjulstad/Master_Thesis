@@ -7,7 +7,7 @@ import sys
 import os
 
 baseFolder = "./"
-rootFolder = "/home/deb/Documents/gitFIPOPT/"
+rootFolder = "/home/build/gitFIPOPT/"
 sys.path.append(rootFolder + "build/test/Plot/")
 
 figFolder = "/home/build/MT/figures/"

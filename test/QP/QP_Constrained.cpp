@@ -28,7 +28,7 @@ int main()
     using Vec_A = Eigen::Matrix<double, Nx + Nh, 1>;
     using Mat_A = Eigen::Matrix<double, Nx + Nh, Nx + Nh>;
 
-    const std::string fPath = "/home/deb/Documents/gitFIPOPT/Data/QP/";
+    const std::string fPath = "/home/build/gitFIPOPT/Data/QP/";
     const std::string pPath = fPath + "Param/";
     Mat_x Q = load_csv<Mat_x>(pPath + "Q.csv");
     Vec_x c = load_csv<Vec_x>(pPath + "c.csv");

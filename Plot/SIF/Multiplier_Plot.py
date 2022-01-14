@@ -7,9 +7,9 @@ import os
 from os.path import basename
 from os import path
 matplotlib.use
-sys.path.append("/home/deb/Documents/gitFIPOPT/build/test/Plot/")
-baseFolder = "/home/deb/Documents/gitFIPOPT/Data/SIF/"
-rootFolder = "/home/deb/Documents/gitFIPOPT/"
+sys.path.append("/home/build/gitFIPOPT/build/test/Plot/")
+baseFolder = "/home/build/gitFIPOPT/Data/SIF/"
+rootFolder = "/home/build/gitFIPOPT/"
 figFolder = "/home/build/MT/figures/"
 
 

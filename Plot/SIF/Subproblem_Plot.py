@@ -7,7 +7,7 @@ from matplotlib.ticker import FormatStrFormatter
 from matplotlib import ticker as mticker
 
 import sys
-rootFolder = "/home/deb/Documents/gitFIPOPT/"
+rootFolder = "/home/build/gitFIPOPT/"
 sys.path.append(rootFolder + "build/Plot/SIF/")
 
 from Binder_SIF import *

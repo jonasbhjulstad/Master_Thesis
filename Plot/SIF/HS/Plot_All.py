@@ -11,7 +11,7 @@ from Trajectory_Plot import Plot_Trajectory
 from Multiplier_Plot import Plot_Multipliers
 import multiprocessing as mp
 
-baseFolder = "/home/deb/Documents/gitFIPOPT/Data/SIF/"
+baseFolder = "/home/build/gitFIPOPT/Data/SIF/"
 
 def plot_single_SIF(fPath):
     Plot_Objective(fPath)

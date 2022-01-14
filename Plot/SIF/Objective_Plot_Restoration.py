@@ -7,12 +7,12 @@ import os
 from os.path import basename
 from os import path
 
-sys.path.append("/home/deb/Documents/gitFIPOPT/Release/Plot/SIF/")
-pFolder = "/home/deb/Documents/gitFIPOPT/Data/SIF/"
-baseFolder = "/home/deb/Documents/gitFIPOPT/Data/SIF/"
+sys.path.append("/home/build/gitFIPOPT/Release/Plot/SIF/")
+pFolder = "/home/build/gitFIPOPT/Data/SIF/"
+baseFolder = "/home/build/gitFIPOPT/Data/SIF/"
 
 
-rootFolder = "/home/deb/Documents/gitFIPOPT/"
+rootFolder = "/home/build/gitFIPOPT/"
 figFolder = "/home/build/MT/figures/"
 sys.path.append(rootFolder + "build/test/Plot/")
 
