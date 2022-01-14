@@ -1,6 +1,6 @@
 #!/bin/bash
 SIF_PROBLEMS="../Data/SIF/Problem_Classification/Filtered_SIF_Names.txt"
-SIF_DATA="../Data/SIF/"
+SIF_DATA="../Data/SIF/HS/"
 FILEDIR=$(pwd)
 cd ../Release/
 for file in `cat SIF_traj_log.txt`; do

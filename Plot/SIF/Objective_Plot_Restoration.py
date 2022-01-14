@@ -8,8 +8,8 @@ from os.path import basename
 from os import path
 
 sys.path.append("//home/build/FIPOPT/Release/Plot/SIF/")
-pFolder = "//home/build/FIPOPT/Data/SIF/"
-baseFolder = "//home/build/FIPOPT/Data/SIF/"
+pFolder = "//home/build/FIPOPT/Data/SIF/HS/"
+baseFolder = "//home/build/FIPOPT/Data/SIF/HS/"
 
 
 rootFolder = "//home/build/FIPOPT/"

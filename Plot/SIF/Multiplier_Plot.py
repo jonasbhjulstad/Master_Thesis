@@ -8,7 +8,7 @@ from os.path import basename
 from os import path
 matplotlib.use
 sys.path.append("//home/build/FIPOPT/build/test/Plot/")
-baseFolder = "//home/build/FIPOPT/Data/SIF/"
+baseFolder = "//home/build/FIPOPT/Data/SIF/HS/"
 rootFolder = "//home/build/FIPOPT/"
 figFolder = "//home/deb/Documents/MT/figures/"
 

@@ -12,7 +12,7 @@ sys.path.append('//home/build/FIPOPT/Data/SIF/ipopt/')
 
 
 # from ipopt_HS_stat import IPOPT_stats
-baseFolder = "//home/build/FIPOPT/Data/SIF/"
+baseFolder = "//home/build/FIPOPT/Data/SIF/HS/"
 pFolder = baseFolder + "Problem/"
 dimFolder = "//home/build/FIPOPT/include/SIF_Dimensions/Dimensions.csv"
 SIF_Folder = "/home/deb/Downloads/cutest/sifdecode/sif/"
@@ -29,22 +29,6 @@ def fix_dim_mat(mat):
         return np.ndarray(shape=(0,2), dtype=np.float64)
     else:
         return mat
-def load_QP_params():
-
-    Q = np.genfromtxt(pFolder + "Q.csv", delimiter=",")
-    c = np.genfromtxt(pFolder + "c.csv", delimiter=",").reshape((-1,1))
-    Nx = c.shape[0]
-    A = np.genfromtxt(pFolder + "A.csv", delimiter=",")
-    b = np.genfromtxt(pFolder + "b.csv", delimiter=",").reshape((-1,1))
-    D = np.genfromtxt(pFolder + "D.csv", delimiter=",").reshape((1,-1))
-    e = np.genfromtxt(pFolder + "e.csv", delimiter=",").reshape((-1,1))
-    x_lb = np.genfromtxt(pFolder + "x_lb.csv", delimiter=",")
-    x_ub = np.genfromtxt(pFolder + "x_ub.csv", delimiter=",")
-    x0 = np.genfromtxt(pFolder + "x0.csv", delimiter=",").reshape((-1,1))
-    # x_traj = np.genfromtxt(pFolder + "x_iter.csv", delimiter=",")
-    # z_traj = np.genfromtxt(pFolder + "z_iter.csv", delimiter=",")
-    return Q, fix_dim_vec(c), fix_dim_mat(A), fix_dim_vec(b), fix_dim_mat(D), fix_dim_vec(e), x_lb, x_ub, x0
-
 def count_subproblem_iter(fPath):
     N_iter = 0
     for subdirname in os.listdir(fPath):

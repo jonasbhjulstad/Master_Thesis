@@ -10,7 +10,7 @@ matplotlib.use
 sys.path.append('//home/deb/Documents/FIPOPT/Data/SIF/ipopt/')
 sys.path.append('./ipopt')
 
-baseFolder = "//home/deb/Documents/FIPOPT/Data/SIF/"
+baseFolder = "//home/deb/Documents/FIPOPT/Data/SIF/HS/"
 pFolder = baseFolder + "Problem/"
 SIF_Folder = "/home/deb/Downloads/cutest/sifdecode/sif/"
 ipopt_Folder = "./ipopt/"

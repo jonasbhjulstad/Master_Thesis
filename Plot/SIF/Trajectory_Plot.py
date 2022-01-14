@@ -10,7 +10,7 @@ from os.path import basename
 matplotlib.use
 sys.path.append("//home/build/FIPOPT/Release/Plot/SIF/")
 
-baseFolder = "//home/build/FIPOPT/Data/SIF/"
+baseFolder = "//home/build/FIPOPT/Data/SIF/HS/"
 pFolder = baseFolder + "Problem/"
 dimFolder = "//home/build/FIPOPT/include/SIF_Dimensions/Dimensions.csv"
 from Binder_SIF import *

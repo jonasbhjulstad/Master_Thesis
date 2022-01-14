@@ -7,7 +7,7 @@ import numpy as np
 import sys
 sys.path.append("//home/deb/Documents/MT/figures/")
 
-baseFolder = "//home/deb/Documents/FIPOPT/Data/SIF/"
+baseFolder = "//home/deb/Documents/FIPOPT/Data/SIF/HS/"
 pFolder = baseFolder + "Problem/"
 dimFolder = "//home/deb/Documents/FIPOPT/include/SIF_Dimensions/Dimensions.csv"
 
