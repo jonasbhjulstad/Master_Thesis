@@ -8,11 +8,12 @@ import os
 from os.path import basename
 
 matplotlib.use
-sys.path.append("//home/build/FIPOPT/Release/Plot/SIF/")
+sys.path.append("/home/deb/Documents/FIPOPT/Release/Plot/SIF/")
 
-baseFolder = "//home/build/FIPOPT/Data/SIF/HS/"
-pFolder = baseFolder + "Problem/"
-dimFolder = "//home/build/FIPOPT/include/SIF_Dimensions/Dimensions.csv"
+SIF_Folder = "/home/deb/Documents/FIPOPT/Data/SIF/"
+HS_Folder = SIF_Folder + "HS/"
+pFolder = SIF_Folder + "Problem/"
+dimFolder = "/home/deb/Documents/FIPOPT/include/SIF_Dimensions/Dimensions.csv"
 from Binder_SIF import *
 
 
@@ -27,28 +28,11 @@ def fix_dim_mat(mat):
         return np.ndarray(shape=(0,2), dtype=np.float64)
     else:
         return mat
-def load_QP_params():
 
-    Q = np.genfromtxt(pFolder + "Q.csv", delimiter=",")
-    c = np.genfromtxt(pFolder + "c.csv", delimiter=",").reshape((-1,1))
-    Nx = c.shape[0]
-    A = np.genfromtxt(pFolder + "A.csv", delimiter=",")
-    b = np.genfromtxt(pFolder + "b.csv", delimiter=",").reshape((-1,1))
-    D = np.genfromtxt(pFolder + "D.csv", delimiter=",").reshape((1,-1))
-    e = np.genfromtxt(pFolder + "e.csv", delimiter=",").reshape((-1,1))
-    x_lb = np.genfromtxt(pFolder + "x_lb.csv", delimiter=",")
-    x_ub = np.genfromtxt(pFolder + "x_ub.csv", delimiter=",")
-    x0 = np.genfromtxt(pFolder + "x0.csv", delimiter=",").reshape((-1,1))
-    # x_traj = np.genfromtxt(pFolder + "x_iter.csv", delimiter=",")
-    # z_traj = np.genfromtxt(pFolder + "z_iter.csv", delimiter=",")
-    return Q, fix_dim_vec(c), fix_dim_mat(A), fix_dim_vec(b), fix_dim_mat(D), fix_dim_vec(e), x_lb, x_ub, x0
-
-
-
-rootFolder = "//home/build/FIPOPT/"
+rootFolder = "/home/deb/Documents/FIPOPT/"
 sys.path.append(rootFolder + "build/test/Plot/")
 
-figFolder = "//home/deb/Documents/MT/figures/"
+figFolder = "/home/deb/Documents/FIPOPT/figures/"
 outsdif = pFolder + "OUTSDIF.d" 
 
 
@@ -81,7 +65,7 @@ def get_dim(fname):
         else:
             return len(np.fromstring(res, sep=', '))
 def is_converged(dirname):
-    with open(baseFolder + dirname + "/success.txt", 'r') as file:
+    with open(HS_Folder + dirname + "/success.txt", 'r') as file:
         if int(file.readline()) == 1:
             return True
 
@@ -237,9 +221,9 @@ def Plot_Trajectory(fname):
 
 if __name__ == '__main__':
 
-    with open(baseFolder + 'Problem/probname.txt', 'r') as file:
+    with open(SIF_Folder + 'Problem/probname.txt', 'r') as file:
         probname = file.read()[:-1]
 
-    Plot_Trajectory(baseFolder + probname + "/")
+    Plot_Trajectory(HS_Folder + probname + "/")
 
 

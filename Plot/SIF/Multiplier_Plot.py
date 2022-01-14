@@ -7,10 +7,11 @@ import os
 from os.path import basename
 from os import path
 matplotlib.use
-sys.path.append("//home/build/FIPOPT/build/test/Plot/")
-baseFolder = "//home/build/FIPOPT/Data/SIF/HS/"
-rootFolder = "//home/build/FIPOPT/"
-figFolder = "//home/deb/Documents/MT/figures/"
+sys.path.append("/home/deb/Documents/FIPOPT/build/test/Plot/")
+SIF_Folder =  "/home/deb/Documents/FIPOPT/Data/SIF/"
+HS_Folder = SIF_Folder + "HS/"
+rootFolder = "/home/deb/Documents/FIPOPT/"
+figFolder = "/home/deb/Documents/FIPOPT/figures/"
 
 
 def read_z_traj(objective_path):
@@ -75,10 +76,10 @@ if __name__ == '__main__':
 
 
     if len(sys.argv) > 1:
-        Plot_Multipliers(baseFolder + sys.argv[1] + "/")
+        Plot_Multipliers(HS_Folder + sys.argv[1] + "/")
     else:
-        with open(baseFolder + 'Problem/probname.txt', 'r') as file:
+        with open(SIF_Folder + 'Problem/probname.txt', 'r') as file:
             probname = file.read()[:-1]
         print(probname)
-        Plot_Multipliers(baseFolder + probname + "/")
+        Plot_Multipliers(HS_Folder + probname + "/")
 

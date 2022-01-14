@@ -7,11 +7,11 @@ from matplotlib import ticker as mticker
 import sys
 import os
 matplotlib.use
-sys.path.append("//home/build/FIPOPT/Release/Plot/QP/")
+sys.path.append("/home/deb/Documents/FIPOPT/Release/Plot/QP/")
 
-baseFolder = "//home/build/FIPOPT/Data/QP/"
-dFolder = baseFolder + "Trajectory/"
-pFolder = baseFolder + "Param/"
+QP_Folder = "/home/deb/Documents/FIPOPT/Data/QP/"
+dFolder = QP_Folder + "Trajectory/"
+pFolder = QP_Folder + "Param/"
 
 from Binder_QP import *
 
@@ -45,10 +45,10 @@ def load_QP_params():
 
 
 
-rootFolder = "//home/build/FIPOPT/"
+rootFolder = "/home/deb/Documents/FIPOPT/"
 sys.path.append(rootFolder + "build/test/Plot/")
 
-figFolder = "//home/deb/Documents/MT/figures/"
+figFolder = "/home/deb/Documents/FIPOPT/figures/"
 
 
 def split(a, n):
@@ -100,7 +100,6 @@ if __name__ == '__main__':
     fig, ax = plt.subplots()
 
     x_cp_traj = np.genfromtxt(dFolder + "x.csv", delimiter=",")
-    x_ineq_cp_traj = np.concatenate(read_x_traj(dFolder + "Inequality_Restoration_0/"), axis=0)[:,:2]
     xk_traj = x_cp_traj[0,:].reshape((1,2))
     xmax = np.full(xk_traj.shape, -np.inf)
     xmin = -xmax

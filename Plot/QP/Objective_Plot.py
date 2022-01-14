@@ -7,10 +7,10 @@ from matplotlib import ticker as mticker
 import sys
 import os
 matplotlib.use
-sys.path.append("//home/build/FIPOPT/Release/Plot/SIF/")
+sys.path.append("/home/deb/Documents/FIPOPT/Release/Plot/SIF/")
 
-# pFolder = "//home/build/FIPOPT/Data/QP/Trajectory/"
-pFolder = "//home/build/FIPOPT/Data/QP/Trajectory/"
+# pFolder = "/home/deb/Documents/FIPOPT/Data/QP/Trajectory/"
+pFolder = "/home/deb/Documents/FIPOPT/Data/QP/Trajectory/"
 
 from Binder_SIF import *
 
@@ -44,8 +44,8 @@ def load_QP_params():
 
 
 
-rootFolder = "//home/build/FIPOPT/"
-figFolder = "//home/deb/Documents/MT/figures/"
+rootFolder = "/home/deb/Documents/FIPOPT/"
+figFolder = "/home/deb/Documents/FIPOPT/figures/"
 sys.path.append(rootFolder + "build/test/Plot/")
 
 
@@ -130,4 +130,4 @@ if __name__ == '__main__':
     ax.set_yscale('log')
     # plt.show()
     # fig.savefig(figFolder +sys.argv[0] + "Objective.eps", format='eps')
-    fig.savefig(figFolder +"QP_Infeasible_Objective.eps", format='eps')
+    fig.savefig(figFolder +"QP_Objective.eps", format='eps')

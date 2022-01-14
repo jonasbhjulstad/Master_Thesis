@@ -9,7 +9,6 @@ using namespace FIPOPT::Dense;
 template <int Row, int Col>
 using Mat = Eigen::Matrix<double, Row, Col>;
 using dMat = Eigen::MatrixXd;
-using Eigen::internal::Packet;
 
 template <int Nx, int Ng, int Nh>
 logbarrier<objective_QP_base<Nx, Ng, Nh, objective>, Nx, Ng, Nh> load_barrier_QP(objective_QP<Nx, Ng, Nh> &f, const double &mu)

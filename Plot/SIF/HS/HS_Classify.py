@@ -8,13 +8,13 @@ import os
 import re
 from collections import Counter
 matplotlib.use('TkAgg')
-sys.path.append('//home/build/FIPOPT/Data/SIF/ipopt/')
+sys.path.append('/home/deb/Documents/FIPOPT/Data/SIF/ipopt/')
 
 
 # from ipopt_HS_stat import IPOPT_stats
-baseFolder = "//home/build/FIPOPT/Data/SIF/HS/"
+baseFolder = "/home/deb/Documents/FIPOPT/Data/SIF/HS/"
 pFolder = baseFolder + "Problem/"
-dimFolder = "//home/build/FIPOPT/include/SIF_Dimensions/Dimensions.csv"
+dimFolder = "/home/deb/Documents/FIPOPT/include/SIF_Dimensions/Dimensions.csv"
 SIF_Folder = "/home/deb/Downloads/cutest/sifdecode/sif/"
 Mastsif = "/home/deb/Downloads/cutest/sifdecode/sif/"
 
@@ -36,10 +36,10 @@ def count_subproblem_iter(fPath):
             N_iter += sum(1 for line in open(fPath + "/" + subdirname + "/" + "x.csv"))
     return N_iter
 
-rootFolder = "//home/build/FIPOPT/"
+rootFolder = "/home/deb/Documents/FIPOPT/"
 sys.path.append(rootFolder + "build/test/Plot/")
 
-figFolder = "//home/deb/Documents/MT/figures/"
+figFolder = "/home/deb/Documents/FIPOPT/figures/"
 outsdif = pFolder + "OUTSDIF.d"
 
 def read_timing(fpath):

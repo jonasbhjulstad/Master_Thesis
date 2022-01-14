@@ -1,4 +1,4 @@
-# Install script for directory: //home/deb/Documents/CIPOPT/include
+# Install script for directory: /home/deb/Documents/CIPOPT/include
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -39,9 +39,9 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("//home/deb/Documents/CIPOPT/include/common/cmake_install.cmake")
-  include("//home/deb/Documents/CIPOPT/include/LineSearch/cmake_install.cmake")
-  include("//home/deb/Documents/CIPOPT/include/Newton/cmake_install.cmake")
+  include("/home/deb/Documents/CIPOPT/include/common/cmake_install.cmake")
+  include("/home/deb/Documents/CIPOPT/include/LineSearch/cmake_install.cmake")
+  include("/home/deb/Documents/CIPOPT/include/Newton/cmake_install.cmake")
 
 endif()
 

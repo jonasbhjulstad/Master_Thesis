@@ -21,7 +21,7 @@ void printArray(T x, integer n)
 int main()
 
 {
-        std::string fname = "//home/build/FIPOPT/Data/SIF/Problem/OUTSDIF.d"; /* CUTEst data file */
+        std::string fname = "/home/deb/Documents/FIPOPT/Data/SIF/Problem/OUTSDIF.d"; /* CUTEst data file */
         integer funit = 42;                                              /* FORTRAN unit number for OUTSDIF.d */
         integer io_buffer = 11;                                          /* FORTRAN unit for internal i/o */
         integer iout = 6;                                                /* FORTRAN unit number for error output */
