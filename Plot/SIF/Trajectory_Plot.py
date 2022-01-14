@@ -8,12 +8,12 @@ import os
 from os.path import basename
 
 matplotlib.use
-sys.path.append("/home/deb/Documents/FIPOPT/Release/Plot/SIF/")
+sys.path.append("/home/build/FIPOPT/Release/Plot/SIF/")
 
-SIF_Folder = "/home/deb/Documents/FIPOPT/Data/SIF/"
+SIF_Folder = "/home/build/FIPOPT/Data/SIF/"
 HS_Folder = SIF_Folder + "HS/"
 pFolder = SIF_Folder + "Problem/"
-dimFolder = "/home/deb/Documents/FIPOPT/include/SIF_Dimensions/Dimensions.csv"
+dimFolder = "/home/build/FIPOPT/include/SIF_Dimensions/Dimensions.csv"
 from Binder_SIF import *
 
 
@@ -29,10 +29,10 @@ def fix_dim_mat(mat):
     else:
         return mat
 
-rootFolder = "/home/deb/Documents/FIPOPT/"
+rootFolder = "/home/build/FIPOPT/"
 sys.path.append(rootFolder + "build/test/Plot/")
 
-figFolder = "/home/deb/Documents/FIPOPT/figures/"
+figFolder = "/home/build/FIPOPT/figures/"
 outsdif = pFolder + "OUTSDIF.d" 
 
 

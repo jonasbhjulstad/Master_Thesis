@@ -7,12 +7,12 @@ import numpy as np
 import sys
 sys.path.append("/home/deb/Documents/MT/figures/")
 
-baseFolder = "/home/deb/Documents/FIPOPT/Data/SIF/HS/"
+baseFolder = "/home/build/FIPOPT/Data/SIF/HS/"
 pFolder = baseFolder + "Problem/"
-dimFolder = "/home/deb/Documents/FIPOPT/include/SIF_Dimensions/Dimensions.csv"
+dimFolder = "/home/build/FIPOPT/include/SIF_Dimensions/Dimensions.csv"
 
-rootFolder = "/home/deb/Documents/FIPOPT/"
-figFolder = "/home/deb/Documents/FIPOPT/figures/"
+rootFolder = "/home/build/FIPOPT/"
+figFolder = "/home/build/FIPOPT/figures/"
 
 if __name__ == '__main__':
     image_filename = os.path.join(os.path.dirname(__file__), 'kitten.jpg')

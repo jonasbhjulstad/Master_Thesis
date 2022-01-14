@@ -7,10 +7,10 @@ import sys
 import os
 
 baseFolder = "./"
-rootFolder = "/home/deb/Documents/FIPOPT/"
+rootFolder = "/home/build/FIPOPT/"
 sys.path.append(rootFolder + "build/test/Plot/")
 
-figFolder = "/home/deb/Documents/FIPOPT/figures/"
+figFolder = "/home/build/FIPOPT/figures/"
 
 def ipopt_stats():
 
