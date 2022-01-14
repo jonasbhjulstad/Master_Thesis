@@ -7,7 +7,7 @@
       INTEGER ITYPEG(LTYPEG), ISTGPA(LSTGPA), ICALCG(LCALCG)
       DOUBLE PRECISION GVALUE(LGVALU,3), FVALUE(LFVALU), GPVALU(LGPVLU)
 C
-C  Problem name : HS13      
+C  Problem name : HS36      
 C
 C  -- produced by SIFdecode 1.0
 C
