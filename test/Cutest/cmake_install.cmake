@@ -1,4 +1,4 @@
-# Install script for directory: /home/build/CIPOPT/test/Cutest
+# Install script for directory: //home/deb/Documents/CIPOPT/test/Cutest
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

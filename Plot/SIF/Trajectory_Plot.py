@@ -8,11 +8,11 @@ import os
 from os.path import basename
 
 matplotlib.use
-sys.path.append("/home/build/gitFIPOPT/Release/Plot/SIF/")
+sys.path.append("//home/build/FIPOPT/Release/Plot/SIF/")
 
-baseFolder = "/home/build/gitFIPOPT/Data/SIF/"
+baseFolder = "//home/build/FIPOPT/Data/SIF/"
 pFolder = baseFolder + "Problem/"
-dimFolder = "/home/build/gitFIPOPT/include/SIF_Dimensions/Dimensions.csv"
+dimFolder = "//home/build/FIPOPT/include/SIF_Dimensions/Dimensions.csv"
 from Binder_SIF import *
 
 
@@ -45,10 +45,10 @@ def load_QP_params():
 
 
 
-rootFolder = "/home/build/gitFIPOPT/"
+rootFolder = "//home/build/FIPOPT/"
 sys.path.append(rootFolder + "build/test/Plot/")
 
-figFolder = "/home/build/MT/figures/"
+figFolder = "//home/deb/Documents/MT/figures/"
 outsdif = pFolder + "OUTSDIF.d" 
 
 

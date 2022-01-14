@@ -7,10 +7,10 @@ from matplotlib import ticker as mticker
 import sys
 import os
 matplotlib.use
-sys.path.append("/home/build/gitFIPOPT/Release/Plot/SIF/")
+sys.path.append("//home/build/FIPOPT/Release/Plot/SIF/")
 
-# pFolder = "/home/build/gitFIPOPT/Data/QP/Trajectory/"
-pFolder = "/home/build/gitFIPOPT/Data/QP/Trajectory/"
+# pFolder = "//home/build/FIPOPT/Data/QP/Trajectory/"
+pFolder = "//home/build/FIPOPT/Data/QP/Trajectory/"
 
 from Binder_SIF import *
 
@@ -44,8 +44,8 @@ def load_QP_params():
 
 
 
-rootFolder = "/home/build/gitFIPOPT/"
-figFolder = "/home/build/MT/figures/"
+rootFolder = "//home/build/FIPOPT/"
+figFolder = "//home/deb/Documents/MT/figures/"
 sys.path.append(rootFolder + "build/test/Plot/")
 
 

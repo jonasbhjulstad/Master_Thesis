@@ -7,13 +7,13 @@ import os
 from os.path import basename
 from os import path
 
-sys.path.append("/home/build/gitFIPOPT/Release/Plot/SIF/")
-pFolder = "/home/build/gitFIPOPT/Data/SIF/"
-baseFolder = "/home/build/gitFIPOPT/Data/SIF/"
+sys.path.append("//home/build/FIPOPT/Release/Plot/SIF/")
+pFolder = "//home/build/FIPOPT/Data/SIF/"
+baseFolder = "//home/build/FIPOPT/Data/SIF/"
 
 
-rootFolder = "/home/build/gitFIPOPT/"
-figFolder = "/home/build/MT/figures/"
+rootFolder = "//home/build/FIPOPT/"
+figFolder = "//home/deb/Documents/MT/figures/"
 sys.path.append(rootFolder + "build/test/Plot/")
 
 def read_f_obj(objective_path):
