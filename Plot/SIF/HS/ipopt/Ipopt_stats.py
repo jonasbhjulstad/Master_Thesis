@@ -6,7 +6,7 @@ from matplotlib import ticker as mticker
 import sys
 import os
 
-baseFolder = "/home/deb/Documents/gitFIPOPT/Data/SIF/ipopt/"
+baseFolder = "./"
 rootFolder = "/home/deb/Documents/gitFIPOPT/"
 sys.path.append(rootFolder + "build/test/Plot/")
 

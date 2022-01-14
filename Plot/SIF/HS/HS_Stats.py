@@ -7,13 +7,39 @@ import sys
 import os
 import re
 matplotlib.use
-sys.path.append('/home/deb/Documents/gitFIPOPT/Data/SIF/ipopt/')
+sys.path.append('/home/deb/Documents/FIPOPT/Data/SIF/ipopt/')
+sys.path.append('./ipopt')
 
-
-baseFolder = "/home/deb/Documents/gitFIPOPT/Data/SIF/"
+baseFolder = "/home/deb/Documents/FIPOPT/Data/SIF/"
 pFolder = baseFolder + "Problem/"
-dimFolder = "/home/deb/Documents/gitFIPOPT/include/SIF_Dimensions/Dimensions.csv"
 SIF_Folder = "/home/deb/Downloads/cutest/sifdecode/sif/"
+ipopt_Folder = "./ipopt/"
+
+def ipopt_stats():
+    
+    N_eq = 0
+    N_ineq = 0
+    SIF_files = []
+    for dirname in os.listdir(ipopt_Folder):
+        if dirname.endswith('.SIF.txt'):
+            SIF_files.append(dirname)
+    N_converged = 0
+
+    SIF_stats = {"N_problems": len(SIF_files)}
+    for res in SIF_files:
+        SIF_res = {"name": res, "converged": False}
+        with open(ipopt_Folder + res, 'r') as file:
+            lines = file.readlines()
+            for line in lines:
+                if line.startswith("Number of Iterations"):
+                    SIF_res["N_iter"] = [int(i) for i in line.split() if i.isdigit()][0]
+                if line.startswith("EXIT: Optimal Solution"):
+                    SIF_res["converged"] = True
+            N_converged += 1
+        SIF_stats["N_converged"] = N_converged
+
+        SIF_stats[res[:-4]] = SIF_res
+    return SIF_stats
 
 
 def count_subproblem_iter(fPath):
@@ -126,7 +152,7 @@ if __name__ == '__main__':
         probstats['N_lbd'] = get_dim(baseFolder + dirname + "/lbd.csv")
         probstats['Nz'] = get_dim(baseFolder + dirname + "/z.csv")
         # probstats['time'] = read_timing(baseFolder + dirname + "/timing.txt")
-        # probstats['time_memoized'] = read_timing(baseFolder + dirname + "/timing_memoized.txt")
+        probstats['time_memoized'] = read_timing(baseFolder + dirname + "/timing_memoized.txt")
         # probstats['time_memoized'] = read_timing(baseFolder + dirname + "/timing_memoized.txt")
         mu_small = False
         for subdirname in os.listdir(baseFolder + dirname + "/"):
@@ -154,16 +180,18 @@ if __name__ == '__main__':
 
     SIF_list = [value for key, value in SIF_stats.items() if (
         'SIF' in key) and (value["Converged"])]
+    ipopt_dict = ipopt_stats()
+    ipopt_list = [ipopt_dict[x['name']] for x in SIF_list]
 
     SIF_list.sort(key=lambda x: x["N_iter"])
 
     fig, ax = plt.subplots()
     ax.plot([x['N_iter'] for x in SIF_list],
             color='k', label='Thesis implementation')
-    # ax.plot([x['N_iter'] for x in ipopt_list], color='k', linestyle='dashed', label='IPOPT')
+    ax.plot([x['N_iter'] for x in ipopt_list], color='k', linestyle='dashed', label='IPOPT')
     ax.grid()
     print(N_converged)
-    # ax.set_yscale('log')
+    ax.set_yscale('log')
     ax.set_ylabel('Subproblem iterations')
     ax.set_xlabel('Converged problems in subproblem iteration-ascending order')
     ax.legend()
@@ -172,9 +200,9 @@ if __name__ == '__main__':
 
     # SIF_list.sort(key=lambda x: x['time'])
     fig2, ax = plt.subplots(2)
-    # ax[0].plot([x['time']  for x in SIF_list], color='k', label='Thesis implementation')
+    ax[0].plot([x['time']  for x in SIF_list], color='k', label='Thesis implementation')
     # ax[0].plot([x['time_memoized']  for x in SIF_list], color='k',linestyle='dotted', label='Thesis implementation memoized')
-    # ax[0].plot([x['time'] for x in ipopt_list], color='k', linestyle='dashed', label='IPOPT')
+    ax[0].plot([x['time'] for x in ipopt_list], color='k', linestyle='dashed', label='IPOPT')
     # ax[0].set_yscale('log')
     ax[0].grid()
     ax[1].plot([x['Nx'] for x in SIF_list], color='k', label=r'$N_x$')

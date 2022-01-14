@@ -1,9 +1,9 @@
-      DOUBLE PRECISION FUNCTION EVAL88( X1, X2,                         
+      DOUBLE PRECISION FUNCTION EVAL92( X1, X2, X3, X4, X5, X6,         
      *                                  G, H )                          
-      DOUBLE PRECISION X1, X2                                           
-      DOUBLE PRECISION G( 2 ), H( 2, 2 )                                
+      DOUBLE PRECISION X1, X2, X3, X4, X5, X6                           
+      DOUBLE PRECISION G( 6 ), H( 6, 6 )                                
       INTEGER          I , J , K , N , NP1, L                           
-      PARAMETER        ( N = 2, NP1 = N + 1 )                           
+      PARAMETER        ( N = 6, NP1 = N + 1 )                           
 C     LOGICAL          CALC                                             
       DOUBLE PRECISION ALPHA , MUJ2  , T, MUI, MUJ   , SMUI , U, SI ,   
      *                 RIJ   , RHOI  , RHOJ  , EU, AI, AIMUI2, CMUI     
@@ -66,6 +66,10 @@ C  Assign values to variables.
 C                                                                       
       X( 1 ) = X1                                                       
       X( 2 ) = X2                                                       
+      X( 3 ) = X3                                                       
+      X( 4 ) = X4                                                       
+      X( 5 ) = X5                                                       
+      X( 6 ) = X6                                                       
 C                                                                       
 C                                  n   2                                
 C  Calculate the functions p(x) = SUM x .                               
@@ -110,7 +114,7 @@ C
 C                                                                       
 C  Evaluate the function and derivatives.                               
 C                                                                       
-      EVAL88    = T                                                     
+      EVAL92    = T                                                     
       DO 320 K = 1, N                                                   
          G( K ) = 0.0D+0                                                
          DO 310 L = K, N                                                
@@ -120,7 +124,7 @@ C
       DO 490 I  = 1, 30                                                 
          SI     = S( I )                                                
          RHOI   = RHO( I )                                              
-         EVAL88 = EVAL88 + SI * RHOI                                    
+         EVAL92 = EVAL92 + SI * RHOI                                    
          DO 420 K = 1, N                                                
             G( K ) = G( K ) + SI * DRHO( I, K )                         
             DO 410 L = K, N                                             
@@ -130,7 +134,7 @@ C
          DO 480 J  = 1, 30                                              
             RIJ    = R( I, J )                                          
             RHOJ   = RHO( J )                                           
-            EVAL88 = EVAL88 + RIJ * RHOI * RHOJ                         
+            EVAL92 = EVAL92 + RIJ * RHOI * RHOJ                         
             DO 440 K = 1, N                                             
                G( K ) = G( K ) + RIJ * ( RHOI * DRHO( J, K ) +          
      *                                   RHOJ * DRHO( I, K ) )          

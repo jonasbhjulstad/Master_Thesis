@@ -27,8 +27,8 @@ const objective_SIF<Nx, Ng, Nh> load_SIF(const std::string& fPath)
 }
 
 
-template <int Nx, int Ng, int Nh>
-void declare_SIF(auto& m)
+template <int Nx, int Ng, int Nh, typename module>
+void declare_SIF(module& m)
     {
         using objective_SIF = objective_SIF<Nx, Ng, Nh>;
         using base_SIF = objective_SIF_base<Nx, Ng, Nh>;

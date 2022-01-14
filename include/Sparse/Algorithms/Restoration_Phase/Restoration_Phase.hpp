@@ -32,12 +32,12 @@ namespace FIPOPT::Sparse
 
         dVec lbd_w = Eval_Initial_Multipliers(f_R, w);
         // spVec_w lbd_w = spVec_w::Constant(1.);
-
+        // P.eps_tol = 1e-2;
         CSV_iteration_journalist CSV_journalist(fPath, iter_dir);
         std::ofstream f_mu(fPath + iter_dir + "mu.csv");
         std::ofstream f_next_BS(fPath + iter_dir + "Next_Subproblem.csv");
 
-        if (Eval_Global_Optimality_Error(f_R, w, lbd_w, z_w, P.s_max) <= P.eps_tol)
+        if (Eval_Global_Optimality_Error(f_R, w, lbd_w, z_w, P.s_max) <= 1e-2)//P.eps_tol)
         {
             return LSFB_INFEASIBLE;
         }

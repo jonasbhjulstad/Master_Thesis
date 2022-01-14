@@ -26,7 +26,7 @@ int main()
 
     const std::string SIF_path = "/home/deb/Documents/gitFIPOPT/Data/SIF/Problem/";
     const std::string SIFname = load_SIF_name(SIF_path + "probname.txt");
-    const std::string dPath = "/home/deb/Documents/gitFIPOPT/Data/SIF/";
+    const std::string dPath = "/home/deb/Documents/gitFIPOPT/Data/SIF/HS/";
     const std::string output_path = dPath + SIFname + "/";
     const std::string journalist_ID = "journalist_f";
 

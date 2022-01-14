@@ -9,6 +9,7 @@ using namespace FIPOPT::Dense;
 template <int Row, int Col>
 using Mat = Eigen::Matrix<double, Row, Col>;
 using dMat = Eigen::MatrixXd;
+using Eigen::internal::Packet;
 
 template <int Nx, int Ng, int Nh>
 logbarrier<objective_QP_base<Nx, Ng, Nh, objective>, Nx, Ng, Nh> load_barrier_QP(objective_QP<Nx, Ng, Nh> &f, const double &mu)
@@ -26,8 +27,8 @@ const objective_QP<Nx, Ng, Nh> load_QP(const Mat<Nx, Nx> &Q, const Mat<Nx, 1> &c
     return f;
 }
 
-template <int Nx, int Ng, int Nh>
-void declare_QP(auto &m)
+template <int Nx, int Ng, int Nh, typename module>
+void declare_QP(module &m)
 {
     using base_QP = objective_QP_base<Nx, Ng, Nh>;
     using objective_barrier_QP = logbarrier<base_QP, Nx, Ng, Nh>;
@@ -58,8 +59,8 @@ void declare_QP(auto &m)
 
 }
 
-template <int Nx, int Ng, int Nh>
-void declare_Inequality_Restoration_QP(auto &m)
+template <int Nx, int Ng, int Nh, typename module>
+void declare_Inequality_Restoration_QP(module &m)
 {
     using base_QP = objective_QP_base<Nx, Ng, Nh>;
     using objective_barrier_QP = logbarrier<base_QP, Nx, Ng, Nh>;
